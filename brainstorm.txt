@@ -1,0 +1,35 @@
+Route management:
+
+User Authentication:
+POST /register: Create a new user account.
+POST /login: Authenticate a user and generate a session token.
+POST /logout: End the user session and invalidate the token.
+
+Friendship Management:
+POST /friend-request: Send a friend request to another user.
+POST /friend-request/accept: Accept a pending friend request.
+POST /friend-request/reject: Reject a pending friend request.
+GET /friends: Get the list of friends for a user.
+DELETE /friends/:friendId: Remove a friend from the user's friend list.
+
+Post Management:
+POST /posts: Create a new post.
+GET /posts: Get a list of posts (optionally filtered by user, friends, etc.).
+GET /posts/:postId: Get details of a specific post.
+PUT /posts/:postId: Update a post.
+DELETE /posts/:postId: Delete a post.
+
+Interaction with Posts:
+POST /posts/:postId/like: Like a post.
+DELETE /posts/:postId/like: Remove like from a post.
+POST /posts/:postId/comment: Add a comment to a post.
+DELETE /posts/:postId/comment/:commentId: Delete a comment from a post.
+
+Notification Management:
+GET /notifications: Get a list of notifications for the authenticated user.
+POST /notifications/:notificationId/mark-as-read: Mark a notification as read.
+DELETE /notifications/:notificationId: Delete a notification.
+User Profile:
+GET /profile/:userId: Get the profile information of a user.
+PUT /profile/:userId: Update the profile information of a user.
+DELETE /profile/:userId: Delete a user account.
