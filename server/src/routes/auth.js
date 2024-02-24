@@ -11,7 +11,4 @@ router.post("/register", authController.register);
 // Rute til at logge bruger ind
 router.post("/login", authController.login);
 
-// Rute til at returnere brugerprofil ud fra brugerid
-router.get("/profile/:userId", authController.userProfile);
-
 export default router;

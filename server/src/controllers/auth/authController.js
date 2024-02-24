@@ -32,17 +32,3 @@ export const login = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
-
-export const userProfile = async (req, res) => {
-    try {
-        const userId = req.params.userId;
-        const query = 'SELECT * FROM users WHERE id = $1';
-        const { rows } = await pool.query(query, [userId]);
-        if (rows.length === 0) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-        res.status(200).json(rows[0]);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};

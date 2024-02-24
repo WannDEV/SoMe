@@ -2,7 +2,8 @@ import pool from "../../db";
 
 export const createPost = async (req, res) => {
   try {
-    const { userId, content, img } = req.body;
+    const userId = req.userId;
+    const { content, img } = req.body;
     const query =
       "INSERT INTO post (userID, content, img) VALUES ($1, $2, $3) RETURNING *";
     const values = [userId, content, img];
@@ -71,8 +72,9 @@ export const getPost = async (req, res) => {
 
 export const updatePost = async (req, res) => {
   try {
+    const userId = req.userId;
     const postId = req.params.postId;
-    const { userId, content, img } = req.body;
+    const { content, img } = req.body;
     // Tjek hvis brugeren der udfører handlingen, er ejeren af opslaget
     const ownershipQuery =
       "SELECT * FROM post WHERE postID = $1 AND userID = $2";
@@ -99,7 +101,7 @@ export const updatePost = async (req, res) => {
 export const deletePost = async (req, res) => {
   try {
     const postId = req.params.postId;
-    const userId = req.query.userId;
+    const userId = req.userId;
     // Tjek hvis brugeren der udfører handlingen, er ejeren af opslaget
     const ownershipQuery =
       "SELECT * FROM post WHERE postid = $1 AND userid = $2";

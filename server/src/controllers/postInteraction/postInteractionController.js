@@ -2,7 +2,7 @@ import pool from "../../db";
 
 export const addLike = async (req, res) => {
   try {
-    const { userId } = req.body;
+    const userId = req.userId;
     const postId = req.params.postId;
     const query =
       "INSERT INTO like (postID, userID) VALUES ($1, $2) RETURNING *";
@@ -16,7 +16,7 @@ export const addLike = async (req, res) => {
 
 export const removeLike = async (req, res) => {
   try {
-    const { userId } = req.body;
+    const userId = req.userId;
     const postId = req.params.postId;
     const query =
       "DELETE FROM like WHERE postID = $1 AND user_id = $2 RETURNING *";
@@ -30,7 +30,8 @@ export const removeLike = async (req, res) => {
 
 export const addComment = async (req, res) => {
   try {
-    const { userId, content } = req.body;
+    const userId = req.userId;
+    const { content } = req.body;
     const postId = req.params.postId;
     const query =
       "INSERT INTO comment (postID, userID, content) VALUES ($1, $2, $3) RETURNING *";
@@ -44,7 +45,7 @@ export const addComment = async (req, res) => {
 
 export const deleteComment = async (req, res) => {
   try {
-    const { userId } = req.body;
+    const userId = req.userId;
     const { postId, commentId } = req.params;
     const query =
       "DELETE FROM comment WHERE postID = $1 AND commentID = $2 AND userID = $3 RETURNING *";

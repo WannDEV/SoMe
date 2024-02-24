@@ -9,8 +9,8 @@ CREATE TABLE "user" (
     userID SERIAL PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    hashed_password VARCHAR(255) NOT NULL,
-    profile_picture BYTEA,
+    hashedPassword VARCHAR(255) NOT NULL,
+    profilePicture BYTEA,
     registrationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
