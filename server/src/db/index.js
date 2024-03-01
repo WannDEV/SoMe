@@ -1,13 +1,14 @@
-import { Pool } from "pg";
+import pkg from "pg";
+const { Pool } = pkg;
 
 // Lav en PostgreSQL pool
 const pool = new Pool({
-  user: "your_username",
-  host: "your_host",
+  user: "postgres",
+  host: "localhost",
   database: "social_media",
-  password: "your_password",
+  password: "postgres123",
   port: 5432, // Standard PostgreSQL port
 });
 
 // Eksporter pool'en så den kan deles over flere moduler
-module.exports = pool;
+export default pool;

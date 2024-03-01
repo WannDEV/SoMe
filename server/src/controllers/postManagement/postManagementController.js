@@ -1,4 +1,4 @@
-import pool from "../../db";
+import pool from "../../db/index.js";
 
 export const createPost = async (req, res) => {
   try {

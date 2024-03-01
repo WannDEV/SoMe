@@ -1,11 +1,11 @@
-import pool from "../../db";
+import pool from "../../db/index.js";
 
 export const addLike = async (req, res) => {
   try {
     const userId = req.userId;
     const postId = req.params.postId;
     const query =
-      "INSERT INTO like (postID, userID) VALUES ($1, $2) RETURNING *";
+      "INSERT INTO post_like (postID, userID) VALUES ($1, $2) RETURNING *";
     const values = [postId, userId];
     const result = await pool.query(query, values);
     res.status(201).json(result.rows[0]);
@@ -19,7 +19,7 @@ export const removeLike = async (req, res) => {
     const userId = req.userId;
     const postId = req.params.postId;
     const query =
-      "DELETE FROM like WHERE postID = $1 AND user_id = $2 RETURNING *";
+      "DELETE FROM post_like WHERE postID = $1 AND user_id = $2 RETURNING *";
     const values = [postId, userId];
     const result = await pool.query(query, values);
     res.status(200).json({ message: "Like removed successfully" });
@@ -34,7 +34,7 @@ export const addComment = async (req, res) => {
     const { content } = req.body;
     const postId = req.params.postId;
     const query =
-      "INSERT INTO comment (postID, userID, content) VALUES ($1, $2, $3) RETURNING *";
+      "INSERT INTO post_comment (postID, userID, content) VALUES ($1, $2, $3) RETURNING *";
     const values = [postId, userId, content];
     const result = await pool.query(query, values);
     res.status(201).json(result.rows[0]);
@@ -48,7 +48,7 @@ export const deleteComment = async (req, res) => {
     const userId = req.userId;
     const { postId, commentId } = req.params;
     const query =
-      "DELETE FROM comment WHERE postID = $1 AND commentID = $2 AND userID = $3 RETURNING *";
+      "DELETE FROM post_comment WHERE postID = $1 AND commentID = $2 AND userID = $3 RETURNING *";
     const values = [postId, commentId, userId];
     const result = await pool.query(query, values);
     res.status(200).json({ message: "Comment deleted successfully" });

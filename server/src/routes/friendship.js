@@ -1,10 +1,10 @@
 import express from "express";
 
 // Import controller som indeholder logikken
-import * as friendshipController from "../controllers/friendship/friendshipController";
+import * as friendshipController from "../controllers/friendship/friendshipController.js";
 
 // Importer middleware
-import validateJWT from "../middlewares/validateJWT";
+import validateJWT from "../middlewares/validateJWT.js";
 
 const router = express.Router();
 

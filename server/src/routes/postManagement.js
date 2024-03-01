@@ -1,10 +1,10 @@
 import express from "express";
 
 // Import controller som indeholder logikken
-import * as postManagementController from "../controllers/postManagement/postManagementController";
+import * as postManagementController from "../controllers/postManagement/postManagementController.js";
 
 // Importer middleware
-const validateJWT = require("../middlewares/validateJWT");
+import validateJWT from "../middlewares/validateJWT.js";
 
 const router = express.Router();
 

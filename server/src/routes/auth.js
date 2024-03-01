@@ -1,7 +1,7 @@
 import express from "express";
 
 // Import controller som indeholder logikken
-import * as authController from "../controllers/auth/authController";
+import * as authController from "../controllers/auth/authController.js";
 
 const router = express.Router();
 

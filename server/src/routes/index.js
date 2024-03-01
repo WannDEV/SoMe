@@ -1,11 +1,11 @@
 import express from "express";
 
 // Importer alle ruter
-import auth from "./auth";
-import friendship from "./friendship";
-import postManagement from "./postManagement";
-import postInteraction from "./postInteraction";
-import notificationManagement from "./notificationManagement";
+import auth from "./auth.js";
+import friendship from "./friendship.js";
+import postManagement from "./postManagement.js";
+import postInteraction from "./postInteraction.js";
+import notificationManagement from "./notificationManagement.js";
 
 const router = express.Router();
 

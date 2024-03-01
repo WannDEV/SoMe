@@ -1,7 +1,7 @@
 import express from "express";
-import validateJWT from "../middlewares/validateJWT";
+import validateJWT from "../middlewares/validateJWT.js";
 
-import * as postInteractionController from "../controllers/postInteraction/postInteractionController";
+import * as postInteractionController from "../controllers/postInteraction/postInteractionController.js";
 
 const router = express.Router();
 
