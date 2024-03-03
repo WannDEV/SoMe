@@ -23,4 +23,7 @@ router.delete(
   postInteractionController.deleteComment
 );
 
+// route to share a post
+router.post("/:postId/share", postInteractionController.sharePost);
+
 export default router;

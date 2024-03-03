@@ -3,10 +3,10 @@ const { Pool } = pkg;
 
 // Lav en PostgreSQL pool
 const pool = new Pool({
-  user: "postgres",
+  user: "social_media_api",
   host: "localhost",
   database: "social_media",
-  password: "postgres123",
+  password: "demo123",
   port: 5432, // Standard PostgreSQL port
 });
 

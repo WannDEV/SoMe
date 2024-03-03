@@ -1,67 +1,84 @@
 -- Create Database if not exists
-CREATE DATABASE IF NOT EXISTS social_media;
+SELECT 'CREATE DATABASE social_media'
+WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'social_media')\gexec
+
 
 -- Connect to the database
 \c social_media;
 
+-- Create database user and grant privileges
+CREATE USER social_media_api WITH PASSWORD '<your-password>';
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO social_media_api;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO social_media_api;
+
 -- Create User Table
-CREATE TABLE "user" (
-    userID SERIAL PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    hashedPassword VARCHAR(255) NOT NULL,
-    profilePicture BYTEA,
-    registrationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE app_user (
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    hashed_password VARCHAR(255) NOT NULL,
+    profile_picture BYTEA,
+    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Create Friendship Table
 CREATE TABLE friendship (
-    friendshipID SERIAL PRIMARY KEY,
-    userID1 INT,
-    userID2 INT,
+    friendship_id SERIAL PRIMARY KEY,
+    user_id1 INT,
+    user_id2 INT,
     status VARCHAR(20) DEFAULT 'pending',
-    FOREIGN KEY (userID1) REFERENCES "user"(userID),
-    FOREIGN KEY (userID2) REFERENCES "user"(userID)
+    FOREIGN KEY (user_id1) REFERENCES app_user(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id2) REFERENCES app_user(user_id) ON DELETE CASCADE
 );
 
 -- Create Post Table
 CREATE TABLE post (
-    postID SERIAL PRIMARY KEY,
-    userID INT,
+    post_id SERIAL PRIMARY KEY,
+    user_id INT,
     content TEXT,
     img BYTEA,
-    postDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (userID) REFERENCES "User"(userID)
+    post_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES app_user(user_id) ON DELETE CASCADE
 );
 
 -- Create Like Table
-CREATE TABLE like (
-    likeID SERIAL PRIMARY KEY,
-    postID INT,
-    userID INT,
-    likeDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (postID) REFERENCES post(postID),
-    FOREIGN KEY (userID) REFERENCES "user"(userID)
+CREATE TABLE post_like (
+    like_id SERIAL PRIMARY KEY,
+    post_id INT,
+    user_id INT,
+    like_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (post_id) REFERENCES post(post_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES app_user(user_id) ON DELETE CASCADE
 );
 
 -- Create Comment Table
-CREATE TABLE comment (
-    commentID SERIAL PRIMARY KEY,
-    postID INT,
-    userID INT,
+CREATE TABLE post_comment (
+    comment_id SERIAL PRIMARY KEY,
+    post_id INT,
+    user_id INT,
     content TEXT,
-    commentDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (postID) REFERENCES post(postID),
-    FOREIGN KEY (userID) REFERENCES "user"(userID)
+    comment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (post_id) REFERENCES post(post_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES app_user(user_id) ON DELETE CASCADE
+);
+
+-- Create Share Table
+CREATE TABLE post_share (
+    share_id SERIAL PRIMARY KEY,
+    post_id INT,
+    user_id INT,
+    share_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (post_id) REFERENCES post(post_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES app_user(user_id) ON DELETE CASCADE
 );
 
 -- Create Notification Table
 CREATE TABLE notification (
-    notificationID SERIAL PRIMARY KEY,
-    userID INT,
-    notificationType VARCHAR(255),
-    notificationContent TEXT,
-    notificationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    isRead BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (userID) REFERENCES "user"(userID)
+    notification_id SERIAL PRIMARY KEY,
+    user_id INT,
+    notification_type VARCHAR(255),
+    notification_content TEXT,
+    notification_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_read BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (user_id) REFERENCES app_user(user_id) ON DELETE CASCADE
 );

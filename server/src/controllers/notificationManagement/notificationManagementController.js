@@ -3,7 +3,7 @@ import pool from "../../db/index.js";
 export const getNotifications = async (req, res) => {
   try {
     const userId = req.userId;
-    const query = "SELECT * FROM notification WHERE userID = $1";
+    const query = "SELECT * FROM notification WHERE user_id = $1";
     const result = await pool.query(query, [userId]);
     res.status(200).json(result.rows);
   } catch (error) {
@@ -16,7 +16,7 @@ export const markNotificationAsRead = async (req, res) => {
     const userId = req.userId;
     const notificationId = req.params.notificationId;
     const query =
-      "UPDATE notification SET isRead = true WHERE notificationID = $1 AND userID = $2 RETURNING *";
+      "UPDATE notification SET is_read = true WHERE notification_id = $1 AND user_id = $2 RETURNING *";
     const result = await pool.query(query, [notificationId, userId]);
     if (result.rows.length === 0) {
       return res.status(404).json({ message: "Notification not found" });
@@ -32,7 +32,7 @@ export const deleteNotification = async (req, res) => {
     const userId = req.userId;
     const notificationId = req.params.notificationId;
     const query =
-      "DELETE FROM notification WHERE notificationID = $1 AND userID = $2 RETURNING *";
+      "DELETE FROM notification WHERE notification_id = $1 AND user_id = $2 RETURNING *";
     const result = await pool.query(query, [notificationId, userId]);
     if (result.rows.length === 0) {
       return res.status(404).json({ message: "Notification not found" });

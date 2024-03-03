@@ -30,7 +30,6 @@ GET /notifications: Get a list of notifications for the authenticated user.
 POST /notifications/:notificationId/mark-as-read: Mark a notification as read.
 DELETE /notifications/:notificationId: Delete a notification.
 
-VIGTIG!!! FLYT USER PROFILE FRA USER TIL USERPROFILE HER
 User Profile:
 GET /profile/:userId: Get the profile information of a user.
 PUT /profile/:userId: Update the profile information of a user.
