@@ -6,8 +6,11 @@ WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'social_media')\gexec
 -- Connect to the database
 \c social_media;
 
+-- Delete database user if exists
+DROP USER IF EXISTS social_media_api;
+
 -- Create database user and grant privileges
-CREATE USER social_media_api WITH PASSWORD '<your-password>';
+CREATE USER social_media_api WITH PASSWORD 'demo123';
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO social_media_api;
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO social_media_api;
 

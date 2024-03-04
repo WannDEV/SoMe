@@ -11,4 +11,7 @@ router.post("/register", authController.register);
 // Rute til at logge bruger ind
 router.post("/login", authController.login);
 
+// Rute til at logge bruger ud
+router.post("/logout", authController.logout);
+
 export default router;

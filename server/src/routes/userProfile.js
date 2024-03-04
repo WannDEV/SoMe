@@ -6,12 +6,12 @@ import * as userProfileController from "../controllers/userProfile/userProfileCo
 const router = express.Router();
 
 // Rute til at få profilinformation om bruger
-router.get("/:userId", userProfileController.getUserProfile);
+router.get("/", userProfileController.getUserProfile);
 
 // Rute til at opdatere profilinformation for bruger
-router.put("/:userId", validateJWT, userProfileController.updateUserProfile);
+router.put("/", validateJWT, userProfileController.updateUserProfile);
 
 // Rute til at slette brugerprofil
-router.delete("/:userId", validateJWT, userProfileController.deleteUserProfile);
+router.delete("/", validateJWT, userProfileController.deleteUserProfile);
 
 export default router;

@@ -2,7 +2,7 @@ import pool from "../../db/index.js";
 
 export const getUserProfile = async (req, res) => {
   try {
-    const userId = req.params.userId;
+    const userId = req.userId;
     const query =
       "SELECT username, email, profile_picture, registration_date FROM app_user WHERE user_id = $1";
     const result = await pool.query(query, [userId]);

@@ -6,6 +6,7 @@ import friendship from "./friendship.js";
 import postManagement from "./postManagement.js";
 import postInteraction from "./postInteraction.js";
 import notificationManagement from "./notificationManagement.js";
+import userProfile from "./userProfile.js";
 
 const router = express.Router();
 
@@ -15,5 +16,6 @@ router.use("/friendship", friendship);
 router.use("/post-management", postManagement);
 router.use("/post-interaction", postInteraction);
 router.use("notification-management", notificationManagement);
+router.use("/user-profile", userProfile);
 
 export default router;

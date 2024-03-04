@@ -30,11 +30,11 @@ router.delete(
 );
 
 // Route to get friends for a user
-router.get("/friends/:userId", friendshipController.getFriends);
+router.get("/friends/", friendshipController.getFriends);
 
 // Rute til at fjerne en ven
 router.delete(
-  "/friends/:userId/:friendId",
+  "/friends/:friendId",
   validateJWT,
   friendshipController.removeFriend
 );

@@ -21,8 +21,10 @@ export const register = async (req, res) => {
     const result = await pool.query(query, values);
     const user = result.rows[0];
     const token = createAuthJWT(user.id);
+    res.cookie("authToken", `${token}`, {
+      httpOnly: true,
+    });
     res.status(201).json({
-      token,
       user: {
         username: user.username,
         email: user.email,
@@ -51,8 +53,10 @@ export const login = async (req, res) => {
       return res.status(401).json({ message: "Invalid password" });
     }
     const token = createAuthJWT(user.id);
+    res.cookie("authToken", `${token}`, {
+      httpOnly: true,
+    });
     res.status(200).json({
-      token,
       user: {
         username: user.username,
         email: user.email,
@@ -63,4 +67,9 @@ export const login = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+};
+
+// logout route that removes httponly cookie
+export const logout = (req, res) => {
+  res.clearCookie("authToken").status(200).json({ message: "Logged out" });
 };

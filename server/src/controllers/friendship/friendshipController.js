@@ -44,7 +44,7 @@ export const rejectFriendRequest = async (req, res) => {
 
 export const getFriends = async (req, res) => {
   try {
-    const userId = req.params.userId;
+    const userId = req.userId;
     const query =
       "SELECT app_user.user_id, app_user.username, app_user.profile_picture FROM friendship JOIN app_user ON friendship.user_id2 = app_user.user_id1 WHERE user_id1 = $1 AND status = $2";
     const values = [userId, "accepted"];

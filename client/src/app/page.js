@@ -4,9 +4,10 @@ import styles from "./page.module.css";
 import { useAuth } from "../contexts/AuthContext";
 import LoginForm from "../components/Auth/LoginForm";
 import RegisterForm from "../components/Auth/RegisterForm";
+import LogoutButton from "../components/Auth/LogoutButton";
 
 export default function Home() {
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   console.log(user);
 
   return (
@@ -26,6 +27,7 @@ export default function Home() {
             <p>Username: {user.username}</p>
             <p>Email: {user.email}</p>
             <p>Registration date: {user.registrationDate}</p>
+            <LogoutButton />
           </div>
         )}
       </div>

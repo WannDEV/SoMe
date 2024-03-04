@@ -10,7 +10,7 @@ const Login = () => {
   const router = useRouter();
 
   const onSuccess = (response) => {
-    login(response.data.user, response.data.token);
+    login(response.data.user);
     router.push("/");
   };
 
