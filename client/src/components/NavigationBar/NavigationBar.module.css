@@ -1,0 +1,29 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff; /* Adjust background color as needed */
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better visibility */
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.searchbar {
+  flex-grow: 1; /* Allow search bar to expand and fill remaining space */
+  margin: 0 20px;
+}
+
+.icons img {
+  width: 30px; /* Adjust icon size as needed */
+  margin-left: 10px; /* Add spacing between icons */
+}
+
+.profilePic {
+  border-radius: 50%; /* Make the profile picture round */
+}
