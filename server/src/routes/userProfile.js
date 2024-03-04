@@ -5,13 +5,16 @@ import * as userProfileController from "../controllers/userProfile/userProfileCo
 
 const router = express.Router();
 
+// Middleware til at validere JWT
+router.use(validateJWT);
+
 // Rute til at få profilinformation om bruger
 router.get("/", userProfileController.getUserProfile);
 
 // Rute til at opdatere profilinformation for bruger
-router.put("/", validateJWT, userProfileController.updateUserProfile);
+router.put("/", userProfileController.updateUserProfile);
 
 // Rute til at slette brugerprofil
-router.delete("/", validateJWT, userProfileController.deleteUserProfile);
+router.delete("/", userProfileController.deleteUserProfile);
 
 export default router;

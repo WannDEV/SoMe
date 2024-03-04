@@ -8,11 +8,14 @@ import validateJWT from "../middlewares/validateJWT.js";
 
 const router = express.Router();
 
+// Middleware til at validere JWT
+router.use(validateJWT);
+
 // Rute til at oprette et opslag
-router.post("/posts", validateJWT, postManagementController.createPost);
+router.post("/posts", postManagementController.createPost);
 
 // Rute til at få alle opslag fra en bruger og deres venner
-router.get("/posts", validateJWT, postManagementController.getPosts);
+router.get("/posts", postManagementController.getPosts);
 
 // Rute til at udforske opslag
 router.get("/discover-posts", postManagementController.discoverPosts);
@@ -21,7 +24,7 @@ router.get("/discover-posts", postManagementController.discoverPosts);
 router.get("/posts/:postId", postManagementController.getPost);
 
 // Rute til at opdatere et opslag ud fra ID
-router.put("/posts/:postId", validateJWT, postManagementController.updatePost);
+router.put("/posts/:postId", postManagementController.updatePost);
 
 // Rute til at slette opslag ud fra ID
 router.delete(

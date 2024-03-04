@@ -5,32 +5,26 @@ import { useAuth } from "../contexts/AuthContext";
 import LoginForm from "../components/Auth/LoginForm";
 import RegisterForm from "../components/Auth/RegisterForm";
 import LogoutButton from "../components/Auth/LogoutButton";
+import { withAuth } from "../components/Auth/WithAuth";
 
-export default function Home() {
+const Home = () => {
   const { user, token } = useAuth();
   console.log(user);
 
   return (
     <main>
       <div>
-        {!user && (
-          <div>
-            <p>You are not logged in</p>
-            <LoginForm />
-            <RegisterForm />
-          </div>
-        )}
         <h1>Welcome to the Home page</h1>
-        {user && (
-          <div>
-            <h2>User details</h2>
-            <p>Username: {user.username}</p>
-            <p>Email: {user.email}</p>
-            <p>Registration date: {user.registrationDate}</p>
-            <LogoutButton />
-          </div>
-        )}
+        <div>
+          <h2>User details</h2>
+          <p>Username: {user.username}</p>
+          <p>Email: {user.email}</p>
+          <p>Registration date: {user.registrationDate}</p>
+          <LogoutButton />
+        </div>
       </div>
     </main>
   );
-}
+};
+
+export default withAuth(Home);

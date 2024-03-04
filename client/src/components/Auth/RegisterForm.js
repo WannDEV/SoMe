@@ -22,18 +22,23 @@ const RegisterForm = () => {
 
   const onSuccess = (response) => {
     login(response.data.user);
-    router.push("/");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:2000/auth/register", {
-        username,
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "http://localhost:2000/auth/register",
+        {
+          username,
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
       onSuccess(response);
 
       console.log(response.data);

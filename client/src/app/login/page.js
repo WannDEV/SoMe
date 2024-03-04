@@ -1,8 +1,15 @@
 "use client";
 import LoginForm from "../../components/Auth/LoginForm";
+import Link from "next/link";
+import { withRedirectIfAuthenticated } from "../../components/Auth/withRedirectIfAuthenticated";
 
 const Login = () => {
-  return <LoginForm />;
+  return (
+    <>
+      <LoginForm />
+      <Link href="/register">Register</Link>
+    </>
+  );
 };
 
-export default Login;
+export default withRedirectIfAuthenticated(Login);

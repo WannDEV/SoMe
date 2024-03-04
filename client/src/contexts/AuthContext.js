@@ -7,6 +7,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   const login = (userData) => {
@@ -15,20 +16,24 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-        const response = await axios.post("http://localhost:2000/auth/logout", {
-            withCredentials: true,
-        });
-        console.log(response.data);
-        router.push("/login");
+      setLoading(true);
+      const response = await axios.post(
+        "http://localhost:2000/auth/logout",
+        null,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(response.data);
+      setUser(null);
+      setLoading(false);
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-};
+  };
 
-  // useEffect to get fetch user from api using axios with the jwt cookie and set user
+  // useEffect til at hente brugerens data fra serveren
   useEffect(() => {
-    router.push("/login");
-
     const fetchUser = async () => {
       try {
         const response = await axios.get("http://localhost:2000/user-profile", {
@@ -39,12 +44,11 @@ export const AuthProvider = ({ children }) => {
         console.log(error);
       }
     };
-    fetchUser();
+    fetchUser().then(() => setLoading(false));
   }, []);
 
-
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
