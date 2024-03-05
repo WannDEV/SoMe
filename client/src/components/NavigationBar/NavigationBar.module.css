@@ -4,7 +4,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fff; /* Adjust background color as needed */
+  background-color: var(--background); /* Use custom color variable */
   padding: 10px 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better visibility */
 }
@@ -19,11 +19,35 @@
   margin: 0 20px;
 }
 
-.icons img {
-  width: 30px; /* Adjust icon size as needed */
-  margin-left: 10px; /* Add spacing between icons */
+.icons a {
+  color: var(--text); /* Use custom color variable */
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  border-radius: 100%;
+  padding: 0.5rem;
+  background-color: var(--text);
+  opacity: 0.05;
+}
+
+.icons a:hover {
+  background-color: var(--secondary); /* Change background color on hover */
 }
 
 .profilePic {
   border-radius: 50%; /* Make the profile picture round */
+  margin-right: 1rem;
+  border: 1px solid white; /* Add border to profile picture */
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.icons > * {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--text);
 }
