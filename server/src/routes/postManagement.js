@@ -12,7 +12,7 @@ const router = express.Router();
 router.use(validateJWT);
 
 // Rute til at oprette et opslag
-router.post("/posts", postManagementController.createPost);
+router.post("/post", postManagementController.createPost);
 
 // Rute til at få alle opslag fra en bruger og deres venner
 router.get("/posts", postManagementController.getPosts);

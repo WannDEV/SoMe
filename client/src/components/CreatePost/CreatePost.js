@@ -4,6 +4,7 @@ import ProfilePicture from "../ProfilePicture/ProfilePicture";
 import { useState, useRef } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { IoCloseOutline } from "react-icons/io5";
+import axios from "axios";
 
 const CreatePost = (props) => {
   const { user } = useAuth();
@@ -50,7 +51,7 @@ const CreatePost = (props) => {
   };
 
   const handleCreatePostClick = () => {
-    console.log("Post created");
+   
   };
 
   return (
@@ -67,6 +68,7 @@ const CreatePost = (props) => {
           <ProfilePicture style={{ marginRight: "0.5rem" }} />
           <p>{user.username}</p>
         </div>
+        <div className={styles.userInputContainer}>
         <textarea
           className={styles.textarea}
           placeholder={`What's on your mind, ${user.username}?`}
@@ -111,6 +113,7 @@ const CreatePost = (props) => {
             </button>
           </div>
         )}
+        </div>
         <button
           className={styles.createPostButton}
           onClick={handleCreatePostClick}

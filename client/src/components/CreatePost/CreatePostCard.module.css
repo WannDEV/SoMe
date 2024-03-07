@@ -33,6 +33,7 @@
   border: none;
   cursor: pointer;
   text-align: left;
+  background-color: var(--background-default);
 }
 
 .createPostButton:hover {
