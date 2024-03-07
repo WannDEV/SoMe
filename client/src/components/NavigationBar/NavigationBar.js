@@ -1,10 +1,11 @@
 "use client";
 import styles from "./NavigationBar.module.css";
 import { useAuth } from "../../contexts/AuthContext";
-import Image from "next/image";
 import { IoMdNotifications } from "react-icons/io";
 import { AiFillMessage } from "react-icons/ai";
+import { FaSearch } from "react-icons/fa";
 import Link from "next/link";
+import ProfilePicture from "../ProfilePicture/ProfilePicture";
 
 const NavigationBar = () => {
   const { user, logout, loading } = useAuth();
@@ -15,9 +16,16 @@ const NavigationBar = () => {
 
   return (
     <div className={styles.navbar}>
-      <div className={styles.logo}>Your Website Logo</div>
+      <div className={styles.logo}>
+        <Link href="/">
+          <h1>
+            <span>Friend</span>Hub
+          </h1>
+        </Link>
+      </div>
       <div className={styles.searchbar}>
-        <input type="text" placeholder="Search..." />
+        <input type="text" placeholder="Search for people, groups etc..." />
+        <FaSearch size={18} className={styles.searchIcon} />
       </div>
       <div className={styles.icons}>
         <Link href="#">
@@ -26,13 +34,7 @@ const NavigationBar = () => {
         <Link href="#">
           <AiFillMessage size={24} />
         </Link>
-        <Image
-          src="/monkey.jpg"
-          alt="Profile"
-          className={styles.profilePic}
-          width={24}
-          height={24}
-        />
+        <ProfilePicture />
       </div>
     </div>
   );

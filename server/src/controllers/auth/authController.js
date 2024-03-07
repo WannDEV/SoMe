@@ -7,7 +7,6 @@ export const register = async (req, res) => {
     const email = req.body.email;
     const username = req.body.username;
     const password = req.body.password;
-    console.log(email, username, password);
     if (!email || !username || !password) {
       return res.status(400).json({ message: "Missing required fields" });
     }

@@ -17,7 +17,7 @@ GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO social_media_api;
 -- Create User Table
 CREATE TABLE app_user (
     user_id SERIAL PRIMARY KEY,
-    username VARCHAR(255) NOT NULL UNIQUE,
+    username VARCHAR(30) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
     hashed_password VARCHAR(255) NOT NULL,
     profile_picture BYTEA,

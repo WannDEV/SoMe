@@ -1,7 +1,7 @@
 "use client";
 import RegisterForm from "../../components/Auth/RegisterForm";
 import Link from "next/link";
-import { withRedirectIfAuthenticated } from "../../components/Auth/withRedirectIfAuthenticated";
+import { WithRedirectIfAuthenticated } from "../../components/Auth/WithRedirectIfAuthenticated";
 
 const Register = () => {
   return (
@@ -12,4 +12,4 @@ const Register = () => {
   );
 };
 
-export default withRedirectIfAuthenticated(Register);
+export default WithRedirectIfAuthenticated(Register);

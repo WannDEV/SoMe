@@ -4,46 +4,79 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--background); /* Use custom color variable */
+  background-color: var(--background-paper); /* Use custom color variable */
   padding: 10px 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better visibility */
 }
 
-.logo {
-  font-size: 24px;
+.logo a {
+  text-decoration: none;
+  color: var(--text-primary); /* Use custom color variable */
+}
+
+.logo h1 {
+  font-size: 1.7rem;
   font-weight: bold;
 }
 
+.logo h1 span {
+  color: var(--primary-color);
+}
+
 .searchbar {
-  flex-grow: 1; /* Allow search bar to expand and fill remaining space */
+  position: relative; /* Add relative positioning */
   margin: 0 20px;
 }
 
+.searchbar input[type="text"] {
+  padding: 0.5rem;
+  padding-left: 35px; /* Adjust padding to make space for the icon */
+  width: 40rem;
+  border-radius: 2rem;
+  background-color: var(--background-default); /* Use custom color variable */
+  border: none;
+  outline: none;
+}
+
+.searchbar input[type="text"]:hover {
+  background-color: var(--grey-200); /* Change background color on hover */
+}
+
+.searchbar input[type="text"]:focus {
+  outline: 1px solid var(--grey-300); /* Add focus outline */
+}
+
+.searchIcon {
+  color: var(--text-primary);
+  position: absolute;
+  left: 10px; /* Adjust the position as needed */
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* Ensure the icon doesn't interfere with input events */
+}
+
 .icons a {
-  color: var(--text); /* Use custom color variable */
+  color: var(--text-primary); /* Use custom color variable */
   text-decoration: none;
   display: flex;
   align-items: center;
   border-radius: 100%;
   padding: 0.5rem;
-  background-color: var(--text);
-  opacity: 0.05;
+  background-color: var(--grey-200); /* Use custom color variable */
 }
 
 .icons a:hover {
-  background-color: var(--secondary); /* Change background color on hover */
-}
-
-.profilePic {
-  border-radius: 50%; /* Make the profile picture round */
-  margin-right: 1rem;
-  border: 1px solid white; /* Add border to profile picture */
+  background-color: var(--grey-300); /* Change background color on hover */
 }
 
 .icons {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
+}
+
+.icons:last-child {
+  margin-right: 1rem;
 }
 
 .icons > * {

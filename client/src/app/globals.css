@@ -27,7 +27,7 @@
   --grey-900: #212121;
 
   /* Text colors */
-  --text-primary: var(--grey-800);
+  --text-primary: var(--grey-900);
   --text-secondary: var(--grey-600);
   --text-disabled: var(--grey-500);
   
@@ -35,10 +35,6 @@
   --background-default: var(--grey-100);
   --background-paper: #fff;
 
-  /* Accent colors */
-  --accent-color: var(--primary-color);
-  --accent-light: var(--primary-light);
-  --accent-dark: var(--primary-dark);
 }
 
 
@@ -51,6 +47,7 @@
 }
 html, body {
   height: 100%;
+  background-color: var(--background-default);
 }
 body {
   line-height: 1.5;
