@@ -5,3 +5,152 @@
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     border-radius: 0.5rem;
 }
+
+.profile {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
+
+.profile div h4 {
+    color: var(--text-primary);
+}
+
+.profile div p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.content {
+}
+
+.content p {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    padding: 1rem;
+}
+
+.content img {
+}
+
+.imageContainer {
+    width: 100%;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    max-height: 70rem;
+}
+
+.actionButtons {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    width: 100%;
+}
+
+.actionButtons button {
+    display: flex;
+    align-items: center;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+}
+
+.actionButtons button:hover {
+    color: var(--text-primary);
+    background-color: var(--background-default);
+}
+
+.actionButtons button svg {
+    margin-right: 0.5rem;
+}
+
+.showMore {
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.showMore:hover {
+    text-decoration: underline;
+}
+
+.isLiked > * {
+    color: var(--primary-color);
+}
+
+.seeAllButton {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 0.5rem auto;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.seeAllButton:hover {
+    color: var(--text-primary);
+}
+
+.commentContainer {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-top: 1px solid #ccc;
+
+}
+
+/* .commentInput {
+    color: var(--text-primary); 
+    width: 100%;
+    background: none;
+    border: none;
+  } */
+
+  .commentInput {
+    width: calc(100% - 1.4rem); /* Adjust input width */
+    background: none;
+    border: none;
+    font-size: 0.9rem; /* Adjust the font size */
+    color: var(--text-primary); /* Set text color */
+    resize: none; /* Disable textarea resizing */
+    overflow: hidden; /* Hide scrollbar */
+    min-height: 38px; /* Set minimum height */
+  }
+  
+  .commentInput::placeholder {
+    color: var(--text-secondary); /* Set placeholder color */
+  }
+  
+  .commentInput:focus {
+    outline: none; /* Remove outline on focus */
+    border-color: var(--grey-600); /* Change border color on focus */
+  }
+  .commentInputContainer {
+    background-color: var(--background-default); /* Set background color */
+    width: 100%; /* Adjust the width */
+    padding: 0.5rem 1rem; /* Adjust the padding */
+    border: 1px solid var(--grey-300); /* Add a border */
+    border-radius: 1rem; /* Add border radius */
+    font-size: 0.9rem; /* Adjust the font size */
+    display: flex;
+    position: relative;
+  }
+
+  .sendButton {
+    position: absolute;
+    color: var(--primary-color); /* Set background color */
+    background: none;
+    border: none; /* Remove border */
+    padding: 0.5rem; /* Adjust the padding */
+    margin-left: 0.5rem; /* Adjust the margin */
+    cursor: pointer; /* Add cursor on hover */
+    bottom: 0;
+    right: 0;
+}

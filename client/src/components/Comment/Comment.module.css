@@ -1,0 +1,30 @@
+.container {
+  padding: 1rem;
+  display: flex;
+}
+
+.profile {
+  margin-right: 0.5rem;
+}
+
+.bubble {
+  background-color: var(--background-default);
+  border-radius: 1rem;
+  padding: 0.6rem;
+}
+
+.username{  
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.content {
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.date {
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+}

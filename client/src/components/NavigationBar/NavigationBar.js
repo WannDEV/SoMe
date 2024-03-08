@@ -19,7 +19,7 @@ const NavigationBar = () => {
       <div className={styles.logo}>
         <Link href="/">
           <h1>
-            <span>Friend</span>Hub
+            <span>Be</span>Social
           </h1>
         </Link>
       </div>
