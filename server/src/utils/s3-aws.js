@@ -3,7 +3,6 @@ import multer from "multer";
 import multerS3 from "multer-s3";
 import { config } from "dotenv";
 import { v4 as uuidv4 } from "uuid";
-import { fileTypeFromBuffer } from "file-type";
 
 config();
 

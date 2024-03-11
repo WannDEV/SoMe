@@ -4,20 +4,19 @@ import { upload } from "../../utils/s3-aws.js";
 export const createPost = async (req, res) => {
   try {
     const userId = req.userId;
-    const { content } = req.body;
-    console.log(req.body);
 
     // Use multer middleware to handle image upload
     await upload.single("image")(req, res, async (err) => {
+      const { content } = req.body;
+      let img = null;
+
       if (err) {
         console.error(err);
         return res.status(400).json({ message: "Error uploading image" });
       }
-      if (!req.file) {
-        return res.status(400).json({ message: "No image uploaded" });
+      if (req.file) {
+        img = req.file.location;
       }
-
-      const img = req.file.location; // Get the uploaded image location from S3
 
       const query =
         "INSERT INTO post (user_id, content, img) VALUES ($1, $2, $3) RETURNING *";
@@ -34,25 +33,40 @@ export const getPosts = async (req, res) => {
   try {
     const userId = req.userId;
 
-    // Forespørgsel til at få alle brugerens venner
-    const friendsQuery =
-      "SELECT user_id2 FROM friendships WHERE user_id1 = $1 AND status = $2";
+    // Get all accepted friend IDs for the user
+    const friendsQuery = `
+      SELECT f.user_id2 AS friend_id
+      FROM friendship f
+      WHERE f.user_id1 = $1
+      AND f.status = $2
+    `;
     const friendsResult = await pool.query(friendsQuery, [userId, "accepted"]);
 
-    // Looper igennem venneobjekterne og returnerer liste med deres ID'er
+    // Extract friend IDs and include user's own ID
     const friendIds = friendsResult.rows.map((row) => row.friend_id);
-
-    // Tilføjer brugerens eget id til vennelisten
     friendIds.push(userId);
 
-    // Forespørgsel til at hente alle opslagene fra listen med ID'er og sorter efter dato
-    const postsQuery =
-      "SELECT * FROM post WHERE user_id = ANY($1::int[]) ORDER BY post_date DESC";
+    // Optimized query to retrieve posts and user details in a single join
+    const postsQuery = `
+      SELECT 
+        p.post_id,
+        p.user_id,
+        p.content,
+        p.img,
+        p.post_date,
+        u.username,
+        u.profile_picture
+      FROM post p
+      INNER JOIN app_user u ON p.user_id = u.user_id
+      WHERE p.user_id = ANY($1::int[])
+      ORDER BY p.post_date DESC
+    `;
     const postsResult = await pool.query(postsQuery, [friendIds]);
 
     res.status(200).json(postsResult.rows);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error); // Log the error for debugging
+    res.status(500).json({ message: "Internal server error" }); // Generic error message for the user
   }
 };
 
