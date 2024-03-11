@@ -21,9 +21,6 @@
     font-size: 0.85rem;
 }
 
-.content {
-}
-
 .content p {
     color: var(--text-primary);
     margin-bottom: 1rem;
@@ -31,15 +28,11 @@
     padding: 1rem;
 }
 
-.content img {
-}
-
 .imageContainer {
     width: 100%;
     background-color: #000;
     display: flex;
     justify-content: center;
-    max-height: 70rem;
 }
 
 .actionButtons {
@@ -92,6 +85,7 @@
     border: none;
     color: var(--text-secondary);
     cursor: pointer;
+    font-size: 0.9rem;
 }
 
 .seeAllButton:hover {
@@ -103,15 +97,7 @@
     align-items: center;
     padding: 0.5rem 1rem;
     border-top: 1px solid #ccc;
-
 }
-
-/* .commentInput {
-    color: var(--text-primary); 
-    width: 100%;
-    background: none;
-    border: none;
-  } */
 
   .commentInput {
     width: calc(100% - 1.4rem); /* Adjust input width */
@@ -120,8 +106,8 @@
     font-size: 0.9rem; /* Adjust the font size */
     color: var(--text-primary); /* Set text color */
     resize: none; /* Disable textarea resizing */
-    overflow: hidden; /* Hide scrollbar */
     min-height: 38px; /* Set minimum height */
+    min-height: unset;
   }
   
   .commentInput::placeholder {
@@ -130,7 +116,6 @@
   
   .commentInput:focus {
     outline: none; /* Remove outline on focus */
-    border-color: var(--grey-600); /* Change border color on focus */
   }
   .commentInputContainer {
     background-color: var(--background-default); /* Set background color */
@@ -141,6 +126,7 @@
     font-size: 0.9rem; /* Adjust the font size */
     display: flex;
     position: relative;
+    z-index: 1;
   }
 
   .sendButton {
@@ -148,9 +134,22 @@
     color: var(--primary-color); /* Set background color */
     background: none;
     border: none; /* Remove border */
-    padding: 0.5rem; /* Adjust the padding */
+    padding: 0.75rem; /* Adjust the padding */
     margin-left: 0.5rem; /* Adjust the margin */
     cursor: pointer; /* Add cursor on hover */
     bottom: 0;
     right: 0;
+}
+
+.sendButton:disabled {
+    color: var(--grey-300);
+    cursor: not-allowed;
+}
+
+.sendButton:hover {
+    color: var(--primary-dark);
+}
+
+.sendButton:disabled:hover {
+    color: var(--grey-300);
 }

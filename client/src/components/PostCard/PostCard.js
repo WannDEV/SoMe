@@ -39,6 +39,15 @@ const PostCard = () => {
     }
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault(); // Prevents the default Enter key behavior
+      // Here you can submit the comment or perform any action
+      console.log("Submit comment:", comment);
+      setComment("");
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.profile}>
@@ -56,7 +65,7 @@ const PostCard = () => {
           </span>
         </p>
         <div className={styles.imageContainer}>
-          <img src="/default_profile_picture.jpg" />
+          {/* <img src="/sample.jpg" /> */}
         </div>
       </div>
       <hr />
@@ -93,6 +102,7 @@ const PostCard = () => {
             onChange={handleCommentChange}
             ref={textareaRef}
             rows={1}
+            onKeyDown={handleKeyDown}
           />
           <button
             className={styles.sendButton}

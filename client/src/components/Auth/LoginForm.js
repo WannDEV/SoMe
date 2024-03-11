@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../../utils/api";
 import { useAuth } from "../../contexts/AuthContext";
 import { useRouter } from "next/navigation";
 
@@ -17,16 +17,10 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:2000/auth/login",
-        {
-          email,
-          password,
-        },
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await api.post("auth/login", {
+        email,
+        password,
+      });
       onSuccess(response);
 
       console.log(response.data);

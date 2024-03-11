@@ -1,18 +1,17 @@
-'use client';
-import axios from "axios";
+"use client";
 import { useAuth } from "../../contexts/AuthContext";
 
 const LogoutButton = () => {
-    const { logout } = useAuth();
+  const { logout } = useAuth();
 
-    return (
-        <button
-        onClick={() => {
-            logout();
-        }}
-        >
-        Logout
-        </button>
-    );
-}
+  return (
+    <button
+      onClick={() => {
+        logout();
+      }}
+    >
+      Logout
+    </button>
+  );
+};
 export default LogoutButton;

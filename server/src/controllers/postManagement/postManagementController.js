@@ -1,14 +1,30 @@
 import pool from "../../db/index.js";
+import { upload } from "../../utils/s3-aws.js";
 
 export const createPost = async (req, res) => {
   try {
     const userId = req.userId;
-    const { content, img } = req.body;
-    const query =
-      "INSERT INTO post (user_id, content, img) VALUES ($1, $2, $3) RETURNING *";
-    const values = [userId, content, img];
-    const result = await pool.query(query, values);
-    res.status(201).json(result.rows[0]);
+    const { content } = req.body;
+    console.log(req.body);
+
+    // Use multer middleware to handle image upload
+    await upload.single("image")(req, res, async (err) => {
+      if (err) {
+        console.error(err);
+        return res.status(400).json({ message: "Error uploading image" });
+      }
+      if (!req.file) {
+        return res.status(400).json({ message: "No image uploaded" });
+      }
+
+      const img = req.file.location; // Get the uploaded image location from S3
+
+      const query =
+        "INSERT INTO post (user_id, content, img) VALUES ($1, $2, $3) RETURNING *";
+      const values = [userId, content, img];
+      const result = await pool.query(query, values);
+      res.status(201).json(result.rows[0]);
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

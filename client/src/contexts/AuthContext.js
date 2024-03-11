@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useContext, useState, useEffect } from "react";
-import axios from "axios";
+import api from "../utils/api";
 import { useRouter } from "next/navigation";
 
 const AuthContext = createContext();
@@ -17,13 +17,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       setLoading(true);
-      const response = await axios.post(
-        "http://localhost:2000/auth/logout",
-        null,
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await api.post("auth/logout");
       console.log(response.data);
       setUser(null);
       setLoading(false);
@@ -36,9 +30,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get("http://localhost:2000/user-profile", {
-          withCredentials: true,
-        });
+        const response = await api.get("user-profile");
         setUser(response.data.user);
       } catch (error) {
         console.log(error);
