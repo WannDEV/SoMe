@@ -9,8 +9,8 @@ config();
 
 // Initialize AWS S3
 const s3 = new AWS.S3({
-  // accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  // secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   region: process.env.AWS_REGION,
 });
 
@@ -25,7 +25,9 @@ export const upload = multer({
     acl: "public-read",
     contentType: multerS3.AUTO_CONTENT_TYPE,
     key: function (req, file, cb) {
-      cb(null, `images/${uuidv4()}.${fileTypeFromBuffer(file.buffer)}`); // Using fileType to determine the file extension
+      // get file extension from file.mimetype
+      const extension = file.mimetype.split("/")[1];
+      cb(null, `images/${uuidv4()}.${extension}`); // Using fileType to determine the file extension
     },
   }),
   fileFilter: (req, file, cb) => {

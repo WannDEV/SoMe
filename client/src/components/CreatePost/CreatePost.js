@@ -53,6 +53,11 @@ const CreatePost = (props) => {
     }
   };
 
+  const handleRemoveImage = () => {
+    setSelectedImage(null);
+    setSelectedImagePreview(null);
+  };
+
   const handleCreatePostClick = async () => {
     try {
       const formData = new FormData();
@@ -138,7 +143,7 @@ const CreatePost = (props) => {
               />
               <button
                 className={styles.removeImageButton}
-                onClick={() => setSelectedImage(null)}
+                onClick={handleRemoveImage}
               >
                 <IoCloseOutline />
               </button>
