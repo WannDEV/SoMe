@@ -21,7 +21,7 @@ CREATE TABLE app_user (
     username VARCHAR(30) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
     hashed_password VARCHAR(255) NOT NULL,
-    profile_picture VARCHAR(255) DEFAULT 'default.jpg',
+    profile_picture VARCHAR(255) DEFAULT '/default.jpg',
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

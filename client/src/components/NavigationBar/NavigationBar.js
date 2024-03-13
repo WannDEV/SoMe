@@ -34,7 +34,7 @@ const NavigationBar = () => {
         <Link href="#">
           <AiFillMessage size={24} />
         </Link>
-        <ProfilePicture />
+        <ProfilePicture src={user.profilePicture} />
       </div>
     </div>
   );

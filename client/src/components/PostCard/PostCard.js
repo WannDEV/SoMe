@@ -1,71 +1,81 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
 import styles from "./PostCard.module.css";
-import Comment from "../Comment/Comment";
 import { AiOutlineLike, AiFillLike } from "react-icons/ai";
-import { FaRegCommentDots } from "react-icons/fa";
+import { FaRegCommentDots, FaCommentDots } from "react-icons/fa";
 import { CiShare2 } from "react-icons/ci";
-import { IoIosArrowDown } from "react-icons/io";
-import { IoSend } from "react-icons/io5";
+import { formatTimestampToDate } from "../../utils/formatTimestamp";
+import CommentSection from "../CommentSection/CommentSection";
+import api from "../../utils/api";
 
-const DUMMY_TEXT =
-  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequunturvoluptatum laborum numquam blanditiis harum quisquam eius sed oditfugiat iusto fuga praesentium optio, eaque rerum! Provident similiqueaccusantium nemo autem. Veritatis obcaecati tenetur iure eius earum utmolestias architecto voluptate aliquam nihil, eveniet aliquid culpaofficia aut! Impedit sit sunt quaerat, odit, tenetur error, harumnesciunt ipsum debitis quas aliquid. Reprehenderit, quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam";
-
-const PostCard = () => {
-  const [liked, setLiked] = useState(false);
+const PostCard = (props) => {
+  const post = props.post;
+  const [liked, setLiked] = useState(post.has_liked);
   const [showMore, setShowMore] = useState(false);
-  const [comment, setComment] = useState("");
-  const textareaRef = useRef(null);
+  const [showComments, setShowComments] = useState(false);
+  const [commentsCount, setCommentsCount] = useState(post.comments_count);
 
   const handleLike = () => {
-    setLiked(!liked);
-  };
-
-  const handleCommentChange = (event) => {
-    setComment(event.target.value);
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    if (!liked == true) {
+      // handle add like
+      api
+        .post(`http://localhost:2000/post-interaction/${post.post_id}/like`)
+        .then((response) => {
+          // handle success
+          console.log("Like added:", response.data);
+          post.likes_count++;
+          setLiked(!liked);
+        })
+        .catch((error) => {
+          // handle error
+          console.error("Error adding like:", error);
+        });
+    } else {
+      // function to handle remove like
+      api
+        .delete(`http://localhost:2000/post-interaction/${post.post_id}/like`)
+        .then((response) => {
+          // handle success
+          console.log("Like removed:", response.data);
+          post.likes_count--;
+          setLiked(!liked);
+        })
+        .catch((error) => {
+          // handle error
+          console.error("Error removing like:", error);
+        });
     }
   };
 
-  const handleSendComment = () => {
-    // Add your logic to send the comment
-    console.log("Comment sent:", comment);
-    // Clear the input field after sending the comment
-    setComment("");
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-    }
-  };
-
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault(); // Prevents the default Enter key behavior
-      // Here you can submit the comment or perform any action
-      console.log("Submit comment:", comment);
-      setComment("");
-    }
+  const handleComment = () => {
+    setShowComments(!showComments);
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.profile}>
-        <ProfilePicture style={{ marginRight: "0.5rem" }} />
+        <ProfilePicture
+          src={post.profile_picture}
+          style={{ marginRight: "0.5rem" }}
+        />
         <div>
-          <h4>Username</h4>
-          <p>25. November 2023 at 09.12 PM</p>
+          <h4>{post.username}</h4>
+          <p>{formatTimestampToDate(post.post_date)}</p>
         </div>
       </div>
       <div className={styles.content}>
         <p>
-          {showMore ? DUMMY_TEXT : `${DUMMY_TEXT.substring(0, 300)}... `}
-          <span onClick={() => setShowMore(true)} className={styles.showMore}>
-            {!showMore && "Show more"}
-          </span>
+          {post.content.length <= 300 || showMore === true
+            ? post.content
+            : `${post.content.substring(0, 300)}... `}
+          {post.content.length > 300 && !showMore && (
+            <span onClick={() => setShowMore(true)} className={styles.showMore}>
+              Show more
+            </span>
+          )}
         </p>
         <div className={styles.imageContainer}>
-          {/* <img src="/sample.jpg" /> */}
+          {post.img && <img src={post.img} alt="Post" />}
         </div>
       </div>
       <hr />
@@ -76,43 +86,32 @@ const PostCard = () => {
             className={`${liked ? styles.isLiked : ""}`}
           >
             {liked ? <AiFillLike size={24} /> : <AiOutlineLike size={24} />}{" "}
-            <p>6.2k</p>
+            <p>{post.likes_count}</p>
           </button>
-          <button>
-            <FaRegCommentDots size={24} /> <p>200</p>
+          <button
+            onClick={handleComment}
+            className={`${showComments ? styles.isCommentSectionActive : ""}`}
+          >
+            {showComments ? (
+              <FaCommentDots size={24} />
+            ) : (
+              <FaRegCommentDots size={24} />
+            )}
+            <p>{commentsCount}</p>
           </button>
         </span>
         <button>
-          <CiShare2 size={24} /> <p>18</p>
+          <CiShare2 size={24} /> <p>{post.shares_count}</p>
         </button>
       </div>
       <hr />
-      <Comment />
-      <button className={styles.seeAllButton}>
-        <p>View all comments</p>
-        <IoIosArrowDown />
-      </button>
-      <div className={styles.commentContainer}>
-        <ProfilePicture style={{ marginRight: "0.5rem" }} />
-        <div className={styles.commentInputContainer}>
-          <textarea
-            placeholder="Write a comment..."
-            className={styles.commentInput}
-            value={comment}
-            onChange={handleCommentChange}
-            ref={textareaRef}
-            rows={1}
-            onKeyDown={handleKeyDown}
-          />
-          <button
-            className={styles.sendButton}
-            onClick={handleSendComment}
-            disabled={comment.trim() === ""}
-          >
-            <IoSend size={18} />
-          </button>
-        </div>
-      </div>
+      <CommentSection
+        post={post}
+        showComments={showComments}
+        setShowComments={setShowComments}
+        commentsCount={commentsCount}
+        setCommentsCount={setCommentsCount}
+      />
     </div>
   );
 };

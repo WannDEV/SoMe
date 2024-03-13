@@ -80,6 +80,12 @@ const CreatePost = (props) => {
         // Reset form fields
         setText("");
         setSelectedImage(null);
+
+        await api
+          .get(`post-management/posts/${response.data.post_id}`)
+          .then((newPostDetailsResponse) => {
+            props.setPosts([newPostDetailsResponse.data, ...props.posts]);
+          });
         props.closeModal(); // Close the modal if applicable
       } else {
         throw new Error("Post creation failed");
@@ -101,7 +107,10 @@ const CreatePost = (props) => {
       <hr className={styles.line} />
       <div className={styles.mainContent}>
         <div className={styles.profileContainer}>
-          <ProfilePicture style={{ marginRight: "0.5rem" }} />
+          <ProfilePicture
+            src={user.profilePicture}
+            style={{ marginRight: "0.5rem" }}
+          />
           <p>{user.username}</p>
         </div>
         <div className={styles.userInputContainer}>

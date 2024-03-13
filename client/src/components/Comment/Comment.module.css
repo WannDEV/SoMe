@@ -3,6 +3,10 @@
   display: flex;
 }
 
+.container:hover .moreButton {
+  display: block;
+}
+
 .profile {
   margin-right: 0.5rem;
 }
@@ -10,7 +14,7 @@
 .bubble {
   background-color: var(--background-default);
   border-radius: 1rem;
-  padding: 0.6rem;
+  padding: 0.6rem 0.8rem;
 }
 
 .username{  
@@ -27,4 +31,25 @@
 .date {
   color: var(--text-secondary);
   font-size: 0.7rem;
+}
+
+.commentContainer {
+  display: flex;
+  align-items: center;
+}
+
+.moreButton {
+  display: none;
+  background-color: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.85rem;
+  border-radius: 100%;
+  padding: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.moreButton:hover {
+  background-color: var(--background-default);
 }

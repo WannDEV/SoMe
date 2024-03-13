@@ -6,7 +6,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import Modal from "../Modal/Modal";
 import CreatePost from "./CreatePost";
 
-const CreatePostCard = () => {
+const CreatePostCard = (props) => {
   const { user } = useAuth();
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -23,13 +23,20 @@ const CreatePostCard = () => {
       <h3 className={styles.title}>Create post</h3>
       <hr className={styles.line} />
       <div className={styles.innerContainer}>
-        <ProfilePicture style={{ marginRight: "1rem" }} />
+        <ProfilePicture
+          src={user.profilePicture}
+          style={{ marginRight: "1rem" }}
+        />
         <button className={styles.createPostButton} onClick={openModal}>
           What's on your mind, {user.username}?
         </button>
       </div>
       <Modal isOpen={modalOpen} onClose={closeModal}>
-        <CreatePost closeModal={closeModal} />
+        <CreatePost
+          closeModal={closeModal}
+          setPosts={props.setPosts}
+          posts={props.posts}
+        />
       </Modal>
     </div>
   );

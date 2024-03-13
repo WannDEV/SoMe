@@ -26,4 +26,7 @@ router.delete(
 // route to share a post
 router.post("/:postId/share", postInteractionController.sharePost);
 
+// Rute til at hente kommentarer til et opslag
+router.get("/:postId/comments", postInteractionController.getComments);
+
 export default router;

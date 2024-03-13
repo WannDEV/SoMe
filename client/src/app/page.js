@@ -1,9 +1,7 @@
 "use client";
 import styles from "./page.module.css";
 import { withAuth } from "../components/Auth/WithAuth";
-import CreatePostCard from "../components/CreatePost/CreatePostCard";
-import Posts from "../components/Posts/Posts"; 
-
+import Posts from "../components/Posts/Posts";
 
 const Home = () => {
   return (
@@ -11,7 +9,6 @@ const Home = () => {
       <div className={styles.container}>
         <div></div>
         <div>
-          <CreatePostCard />
           <Posts />
         </div>
         <div></div>

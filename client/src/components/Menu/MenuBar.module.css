@@ -1,0 +1,32 @@
+.menuBar {
+  position: relative;
+}
+
+.menuButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.menuContent {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: red;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 1;
+}
+
+.menuContent ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menuContent ul li {
+  padding: 5px 0;
+}

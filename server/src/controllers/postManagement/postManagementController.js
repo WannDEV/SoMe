@@ -46,7 +46,7 @@ export const getPosts = async (req, res) => {
     const friendIds = friendsResult.rows.map((row) => row.friend_id);
     friendIds.push(userId);
 
-    // Optimized query to retrieve posts and user details in a single join
+    // Optimized query with subqueries and check for user like
     const postsQuery = `
       SELECT 
         p.post_id,
@@ -55,13 +55,18 @@ export const getPosts = async (req, res) => {
         p.img,
         p.post_date,
         u.username,
-        u.profile_picture
+        u.profile_picture,
+        (SELECT COUNT(*) FROM post_like WHERE post_like.post_id = p.post_id) AS likes_count,
+        (SELECT COUNT(*) FROM post_comment WHERE post_comment.post_id = p.post_id) AS comments_count,
+        (SELECT COUNT(*) FROM post_share WHERE post_share.post_id = p.post_id) AS shares_count,
+        (SELECT EXISTS(SELECT 1 FROM post_like WHERE post_like.post_id = p.post_id AND post_like.user_id = $2)) AS has_liked
       FROM post p
       INNER JOIN app_user u ON p.user_id = u.user_id
-      WHERE p.user_id = ANY($1::int[])
+      WHERE p.user_id = ANY($1::int[]) -- Array of friend IDs
+      OR p.user_id = $2 -- Current user's ID
       ORDER BY p.post_date DESC
     `;
-    const postsResult = await pool.query(postsQuery, [friendIds]);
+    const postsResult = await pool.query(postsQuery, [friendIds, userId]);
 
     res.status(200).json(postsResult.rows);
   } catch (error) {
@@ -89,14 +94,36 @@ export const discoverPosts = async (req, res) => {
 export const getPost = async (req, res) => {
   try {
     const postId = req.params.postId;
-    const query = "SELECT * FROM post WHERE post_id = $1";
-    const result = await pool.query(query, [postId]);
+
+    // Optimized query with subqueries and check for user like (similar to getPosts)
+    const query = `
+      SELECT 
+        p.post_id,
+        p.user_id,
+        p.content,
+        p.img,
+        p.post_date,
+        u.username,
+        u.profile_picture,
+        (SELECT COUNT(*) FROM post_like WHERE post_like.post_id = p.post_id) AS likes_count,
+        (SELECT COUNT(*) FROM post_comment WHERE post_comment.post_id = p.post_id) AS comments_count,
+        (SELECT COUNT(*) FROM post_share WHERE post_share.post_id = p.post_id) AS shares_count,
+        (SELECT EXISTS(SELECT 1 FROM post_like WHERE post_like.post_id = p.post_id AND post_like.user_id = $2)) AS has_liked
+      FROM post p
+      INNER JOIN app_user u ON p.user_id = u.user_id
+      WHERE p.post_id = $1
+    `;
+
+    const result = await pool.query(query, [postId, req.userId]);
+
     if (result.rows.length === 0) {
       return res.status(404).json({ message: "Post not found" });
     }
+
     res.status(200).json(result.rows[0]);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 

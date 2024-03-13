@@ -79,8 +79,3 @@ Background colors:
 
 Background Default: var(--grey-100)
 Background Paper: #fff
-Accent colors:
-
-Accent Color: var(--primary-color)
-Accent Light: var(--primary-light)
-Accent Dark: var(--primary-dark)

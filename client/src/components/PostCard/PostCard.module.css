@@ -76,80 +76,14 @@
     color: var(--primary-color);
 }
 
-.seeAllButton {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    margin: 0.5rem auto;
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    cursor: pointer;
-    font-size: 0.9rem;
-}
-
-.seeAllButton:hover {
-    color: var(--text-primary);
-}
-
-.commentContainer {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    border-top: 1px solid #ccc;
-}
-
-  .commentInput {
-    width: calc(100% - 1.4rem); /* Adjust input width */
-    background: none;
-    border: none;
-    font-size: 0.9rem; /* Adjust the font size */
-    color: var(--text-primary); /* Set text color */
-    resize: none; /* Disable textarea resizing */
-    min-height: 38px; /* Set minimum height */
-    min-height: unset;
-  }
-  
-  .commentInput::placeholder {
-    color: var(--text-secondary); /* Set placeholder color */
-  }
-  
-  .commentInput:focus {
-    outline: none; /* Remove outline on focus */
-  }
-  .commentInputContainer {
-    background-color: var(--background-default); /* Set background color */
-    width: 100%; /* Adjust the width */
-    padding: 0.5rem 1rem; /* Adjust the padding */
-    border: 1px solid var(--grey-300); /* Add a border */
-    border-radius: 1rem; /* Add border radius */
-    font-size: 0.9rem; /* Adjust the font size */
-    display: flex;
-    position: relative;
-    z-index: 1;
-  }
-
-  .sendButton {
-    position: absolute;
-    color: var(--primary-color); /* Set background color */
-    background: none;
-    border: none; /* Remove border */
-    padding: 0.75rem; /* Adjust the padding */
-    margin-left: 0.5rem; /* Adjust the margin */
-    cursor: pointer; /* Add cursor on hover */
-    bottom: 0;
-    right: 0;
-}
-
-.sendButton:disabled {
-    color: var(--grey-300);
-    cursor: not-allowed;
-}
-
-.sendButton:hover {
+.isLiked > *:hover {
     color: var(--primary-dark);
 }
 
-.sendButton:disabled:hover {
-    color: var(--grey-300);
+.isCommentSectionActive > * {
+    color: var(--primary-color);    
+}
+
+.isCommentSectionActive > *:hover {
+    color: var(--primary-dark);
 }
