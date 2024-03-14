@@ -45,9 +45,26 @@ export const rejectFriendRequest = async (req, res) => {
 export const getFriends = async (req, res) => {
   try {
     const userId = req.userId;
-    const query =
-      "SELECT app_user.user_id, app_user.username, app_user.profile_picture FROM friendship JOIN app_user ON friendship.user_id2 = app_user.user_id1 WHERE user_id1 = $1 AND status = $2";
-    const values = [userId, "accepted"];
+    const { friendStatus } = req.params;
+    let query;
+    let values;
+
+    if (friendStatus === "pending") {
+      query =
+        "SELECT app_user.user_id, app_user.username, app_user.profile_picture FROM friendship JOIN app_user ON friendship.user_id2 = app_user.user_id1 WHERE user_id1 = $1 AND status = $2";
+      values = [userId, "pending"];
+    } else if (friendStatus === "accepted") {
+      query =
+        "SELECT app_user.user_id, app_user.username, app_user.profile_picture FROM friendship JOIN app_user ON friendship.user_id2 = app_user.user_id1 WHERE user_id1 = $1 AND status = $2";
+      values = [userId, "accepted"];
+    } else if (friendStatus === "all") {
+      query =
+        "SELECT app_user.user_id, app_user.username, app_user.profile_picture FROM friendship JOIN app_user ON friendship.user_id2 = app_user.user_id1 WHERE user_id1 = $1";
+      values = [userId];
+    } else {
+      return res.status(400).json({ message: "Invalid friend status" });
+    }
+
     const result = await pool.query(query, values);
     res.status(200).json(result.rows);
   } catch (error) {

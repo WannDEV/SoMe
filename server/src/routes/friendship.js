@@ -23,8 +23,8 @@ router.delete(
   friendshipController.rejectFriendRequest
 );
 
-// Route to get friends for a user
-router.get("/friends/", friendshipController.getFriends);
+// Rute til at hente venner
+router.get("/friends/:friendStatus", friendshipController.getFriends);
 
 // Rute til at fjerne en ven
 router.delete("/friends/:friendId", friendshipController.removeFriend);
