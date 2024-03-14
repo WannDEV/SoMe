@@ -32,7 +32,6 @@
   font-size: 0.9rem; /* Adjust the font size */
   display: flex;
   position: relative;
-  z-index: 1;
 }
 
 .sendButton {

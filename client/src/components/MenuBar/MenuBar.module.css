@@ -14,19 +14,15 @@
   position: absolute;
   top: 100%;
   right: 0;
-  background-color: red;
-  border: 1px solid #ccc;
+  background-color: var(--background-default);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  padding: 10px;
   z-index: 1;
+  width: 20rem;
 }
 
 .menuContent ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
-}
-
-.menuContent ul li {
-  padding: 5px 0;
 }

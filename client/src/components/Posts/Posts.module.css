@@ -1,3 +1,12 @@
 .container {
     width: 42.5rem;
 }
+
+.noPosts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    flex-direction: column;
+    color: var(--text-secondary);
+}

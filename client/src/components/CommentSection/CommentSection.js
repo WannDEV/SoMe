@@ -38,6 +38,9 @@ const CommentSection = ({
     if (textareaRef.current) {
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
+    if (event.target.value === "") {
+      textareaRef.current.style.height = "auto";
+    }
   };
 
   const handleSendComment = () => {
@@ -81,7 +84,13 @@ const CommentSection = ({
       <div className={styles.CommentsContainer}>
         {showComments &&
           comments.map((comment) => (
-            <Comment key={comment.comment_id} comment={comment} />
+            <Comment key={comment.comment_id} 
+            comment={comment} 
+            postId={post.post_id} 
+            setComments={setComments} 
+            comments={comments} 
+            setCommentsCount={setCommentsCount} 
+            commentsCount={commentsCount} />
           ))}
         {showComments && comments.length === 0 && (
           <p className={styles.noComments}>No comments yet</p>

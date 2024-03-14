@@ -6,9 +6,12 @@ import { AiFillMessage } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
 import Link from "next/link";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
+import MenuBar from "../MenuBar/MenuBar"
+import { useState } from "react";
 
 const NavigationBar = () => {
   const { user, logout, loading } = useAuth();
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
   if (loading || !user) {
     return null;
@@ -34,7 +37,15 @@ const NavigationBar = () => {
         <Link href="#">
           <AiFillMessage size={24} />
         </Link>
-        <ProfilePicture src={user.profilePicture} />
+        <MenuBar 
+        buttonComponent={<ProfilePicture src={user.profilePicture} 
+        customClass={styles.profilePicture} />} 
+        isOpen={isProfileMenuOpen} 
+        setIsOpen={setIsProfileMenuOpen}
+        placement="right">
+          <p>iojsfiojes</p>
+          <p>osijefiosef</p>
+        </MenuBar>
       </div>
     </div>
   );

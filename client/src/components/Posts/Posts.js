@@ -3,6 +3,7 @@ import styles from "./Posts.module.css";
 import PostCard from "../PostCard/PostCard";
 import api from "../../utils/api";
 import CreatePostCard from "../CreatePost/CreatePostCard";
+import { AiOutlineInbox } from "react-icons/ai";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -25,7 +26,10 @@ const Posts = () => {
   return (
     <div className={styles.container}>
       <CreatePostCard setPosts={setPosts} posts={posts} />
-      {!loading && posts.length === 0 && <h2>No posts to show</h2>}
+      {!loading && posts.length === 0 && <div className={styles.noPosts}>
+        <AiOutlineInbox size={100} />
+        <h2>No posts to show</h2>
+        </div>}
       {posts.map((post) => (
         <PostCard key={post.post_id} post={post} />
       ))}
