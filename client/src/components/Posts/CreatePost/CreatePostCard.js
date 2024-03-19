@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
 import styles from "./CreatePostCard.module.css";
-import ProfilePicture from "../ProfilePicture/ProfilePicture";
-import { useAuth } from "../../contexts/AuthContext";
-import Modal from "../Modal/Modal";
+import ProfilePicture from "../../ProfilePicture/ProfilePicture";
+import { useAuth } from "../../../contexts/AuthContext";
+import Modal from "../../Modal/Modal";
 import CreatePost from "./CreatePost";
 
 const CreatePostCard = (props) => {
@@ -28,15 +28,11 @@ const CreatePostCard = (props) => {
           style={{ marginRight: "1rem" }}
         />
         <button className={styles.createPostButton} onClick={openModal}>
-          What's on your mind, {user.username}?
+          {`What's on your mind, ${user.username}?`}
         </button>
       </div>
       <Modal isOpen={modalOpen} onClose={closeModal}>
-        <CreatePost
-          closeModal={closeModal}
-          setPosts={props.setPosts}
-          posts={props.posts}
-        />
+        <CreatePost closeModal={closeModal} />
       </Modal>
     </div>
   );

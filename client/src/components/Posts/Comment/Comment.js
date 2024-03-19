@@ -1,24 +1,28 @@
 import styles from "./Comment.module.css";
-import ProfilePicture from "../ProfilePicture/ProfilePicture";
-import { formatTimestampToTimeAgo } from "../../utils/formatTimestamp";
+import ProfilePicture from "../../ProfilePicture/ProfilePicture";
+import { formatTimestampToTimeAgo } from "../../../utils/formatTimestamp";
 import { IoIosMore } from "react-icons/io";
-import MenuBar from "../MenuBar/MenuBar";
+import MenuBar from "../../MenuBar/MenuBar";
 import { useState } from "react";
 import { MdDelete } from "react-icons/md";
-import api from "../../utils/api";
+import api from "../../../utils/api";
 
 const Comment = (props) => {
   const comment = props.comment;
   const [isOpen, setIsOpen] = useState(false);
 
   const handleDelete = () => {
-    api.delete(`post-interaction/${props.postId}/comment/${comment.comment_id}`)
-      .then(response => {
+    api
+      .delete(`post-interaction/${props.postId}/comment/${comment.comment_id}`)
+      .then((response) => {
         console.log("Comment deleted");
         setIsOpen(false);
-        props.setComments(props.comments.filter(c => c.comment_id !== comment.comment_id));
+        props.setComments(
+          props.comments.filter((c) => c.comment_id !== comment.comment_id)
+        );
         props.setCommentsCount(props.commentsCount - 1);
-      }).catch(error => {
+      })
+      .catch((error) => {
         console.error("Error deleting comment:", error);
         // Handle any error that occurs during deletion
       });
@@ -36,8 +40,12 @@ const Comment = (props) => {
             <p className={styles.content}>{comment.content}</p>
           </div>
           <MenuBar
-            buttonComponent={
-              <button className={`${styles.moreButton} ${isOpen ? styles.menuIsOpen : ""}`}>
+            triggerComponent={
+              <button
+                className={`${styles.moreButton} ${
+                  isOpen ? styles.menuIsOpen : ""
+                }`}
+              >
                 <IoIosMore size={18} />
               </button>
             }
@@ -46,7 +54,10 @@ const Comment = (props) => {
             placement="left"
           >
             <ul>
-            <li onClick={handleDelete} className={styles.deleteComment}><MdDelete size={24} />Delete comment</li>
+              <li onClick={handleDelete} className={styles.deleteComment}>
+                <MdDelete size={24} />
+                Delete comment
+              </li>
             </ul>
           </MenuBar>
         </div>

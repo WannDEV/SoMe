@@ -38,6 +38,15 @@
   --background-default: var(--grey-100);
   --background-paper: #fff;
 
+  /* Navbar height */
+  --navbar-height: 3.5rem;
+
+  /* Breakpoints */
+  --screen-sm: 640px;
+  --screen-md: 768px;
+  --screen-lg: 1024px;
+  --screen-xl: 1280px;
+  --screen-2xl: 1536px;
 }
 
 

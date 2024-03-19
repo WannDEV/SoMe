@@ -1,13 +1,16 @@
 import styles from "./CreatePost.module.css";
-import { useAuth } from "../../contexts/AuthContext";
-import ProfilePicture from "../ProfilePicture/ProfilePicture";
+import { useAuth } from "../../../contexts/AuthContext";
+import ProfilePicture from "../../ProfilePicture/ProfilePicture";
 import { useState, useRef } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { IoCloseOutline } from "react-icons/io5";
-import api from "../../utils/api";
+import api from "../../../utils/api";
+import Image from "next/image";
+import { usePosts } from "../../../contexts/PostsContext";
 
 const CreatePost = (props) => {
   const { user } = useAuth();
+  const { posts, addPost } = usePosts();
   const [text, setText] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedImagePreview, setSelectedImagePreview] = useState(null);
@@ -84,7 +87,7 @@ const CreatePost = (props) => {
         await api
           .get(`post-management/posts/${response.data.post_id}`)
           .then((newPostDetailsResponse) => {
-            props.setPosts([newPostDetailsResponse.data, ...props.posts]);
+            addPost(newPostDetailsResponse.data);
           });
         props.closeModal(); // Close the modal if applicable
       } else {
@@ -145,10 +148,13 @@ const CreatePost = (props) => {
           )}
           {selectedImagePreview && (
             <div className={styles.selectedImageContainer}>
-              <img
+              <Image
                 src={selectedImagePreview}
                 alt="Selected"
                 className={styles.selectedImage}
+                layout="responsive"
+                width={500}
+                height={300}
               />
               <button
                 className={styles.removeImageButton}

@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import api from "../../utils/api";
+import api from "../../../utils/api";
 import Comment from "../Comment/Comment";
 import styles from "./CommentSection.module.css";
-import ProfilePicture from "../ProfilePicture/ProfilePicture";
+import ProfilePicture from "../../ProfilePicture/ProfilePicture";
 import { IoSend } from "react-icons/io5";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../../contexts/AuthContext";
 
 const CommentSection = ({
   post,
@@ -31,7 +31,7 @@ const CommentSection = ({
         // handle error
         console.error("Error fetching comments:", error);
       });
-  }, [showComments]);
+  }, [showComments, post.post_id]);
 
   const handleCommentChange = (event) => {
     setComment(event.target.value);
@@ -84,13 +84,15 @@ const CommentSection = ({
       <div className={styles.CommentsContainer}>
         {showComments &&
           comments.map((comment) => (
-            <Comment key={comment.comment_id} 
-            comment={comment} 
-            postId={post.post_id} 
-            setComments={setComments} 
-            comments={comments} 
-            setCommentsCount={setCommentsCount} 
-            commentsCount={commentsCount} />
+            <Comment
+              key={comment.comment_id}
+              comment={comment}
+              postId={post.post_id}
+              setComments={setComments}
+              comments={comments}
+              setCommentsCount={setCommentsCount}
+              commentsCount={commentsCount}
+            />
           ))}
         {showComments && comments.length === 0 && (
           <p className={styles.noComments}>No comments yet</p>

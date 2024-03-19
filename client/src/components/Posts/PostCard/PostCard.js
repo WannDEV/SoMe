@@ -1,12 +1,17 @@
 import { useState } from "react";
-import ProfilePicture from "../ProfilePicture/ProfilePicture";
+import ProfilePicture from "../../ProfilePicture/ProfilePicture";
 import styles from "./PostCard.module.css";
 import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { FaRegCommentDots, FaCommentDots } from "react-icons/fa";
 import { CiShare2 } from "react-icons/ci";
-import { formatTimestampToDate } from "../../utils/formatTimestamp";
+import { formatTimestampToDate } from "../../../utils/formatTimestamp";
 import CommentSection from "../CommentSection/CommentSection";
-import api from "../../utils/api";
+import api from "../../../utils/api";
+import Image from "next/image";
+import MenuBar from "../../MenuBar/MenuBar";
+import { IoIosMore } from "react-icons/io";
+import { MdDelete } from "react-icons/md";
+import { usePosts } from "../../../contexts/PostsContext";
 
 const PostCard = (props) => {
   const post = props.post;
@@ -14,6 +19,8 @@ const PostCard = (props) => {
   const [showMore, setShowMore] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [commentsCount, setCommentsCount] = useState(post.comments_count);
+  const [isOpen, setIsOpen] = useState(false);
+  const { removePost } = usePosts();
 
   const handleLike = () => {
     if (!liked == true) {
@@ -62,20 +69,54 @@ const PostCard = (props) => {
           <h4>{post.username}</h4>
           <p>{formatTimestampToDate(post.post_date)}</p>
         </div>
+        <div className={styles.dropDownMenu}>
+          <MenuBar
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            triggerComponent={
+              <button className={styles.dropDownMenuButton}>
+                <IoIosMore size={24} />
+              </button>
+            }
+          >
+            <ul>
+              <li
+                onClick={() => removePost(post.post_id)}
+                className={styles.deletePost}
+              >
+                <MdDelete size={24} />
+                Delete Post
+              </li>
+            </ul>
+          </MenuBar>
+        </div>
       </div>
       <div className={styles.content}>
-        <p>
-          {post.content.length <= 300 || showMore === true
-            ? post.content
-            : `${post.content.substring(0, 300)}... `}
-          {post.content.length > 300 && !showMore && (
-            <span onClick={() => setShowMore(true)} className={styles.showMore}>
-              Show more
-            </span>
-          )}
-        </p>
+        {post.content && (
+          <p>
+            {post.content.length <= 300 || showMore === true
+              ? post.content
+              : `${post.content.substring(0, 300)}... `}
+            {post.content.length > 300 && !showMore && (
+              <span
+                onClick={() => setShowMore(true)}
+                className={styles.showMore}
+              >
+                Show more
+              </span>
+            )}
+          </p>
+        )}
         <div className={styles.imageContainer}>
-          {post.img && <img src={post.img} alt="Post" />}
+          {post.img && (
+            <Image
+              src={post.img}
+              alt="Post"
+              width={500} // Adjust as needed
+              height={300} // Adjust as needed
+              layout="responsive"
+            />
+          )}
         </div>
       </div>
       <hr />

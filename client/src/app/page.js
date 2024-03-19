@@ -2,16 +2,19 @@
 import styles from "./page.module.css";
 import { withAuth } from "../components/Auth/WithAuth";
 import Posts from "../components/Posts/Posts";
+import FriendsSideBar from "../components/FriendsSideBar/FriendsSideBar";
+import NavigationSideBar from "../components/NavigationSideBar/NavigationSideBar";
+import { PostsProvider } from "../contexts/PostsContext";
 
 const Home = () => {
   return (
     <main>
       <div className={styles.container}>
-        <div></div>
-        <div>
+        <NavigationSideBar />
+        <PostsProvider>
           <Posts />
-        </div>
-        <div></div>
+        </PostsProvider>
+        <FriendsSideBar />
       </div>
     </main>
   );

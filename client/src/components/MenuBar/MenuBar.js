@@ -19,7 +19,7 @@ const MenuBar = (props) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [setIsOpen]);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -55,7 +55,7 @@ const MenuBar = (props) => {
 
   return (
     <div ref={menuRef} className={styles.menuBar}>
-      {React.cloneElement(props.buttonComponent, { onClick: toggleMenu })}
+      {React.cloneElement(props.triggerComponent, { onClick: toggleMenu })}
       {isOpen && (
         <div className={styles.menuContent} style={getMenuStyles()}>
           {props.children}

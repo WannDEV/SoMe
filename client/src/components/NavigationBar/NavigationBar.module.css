@@ -1,5 +1,5 @@
 .navbar {
-  position: sticky;
+  position: fixed; /* Change position to fixed */
   top: 0;
   display: flex;
   justify-content: space-between;
@@ -7,6 +7,9 @@
   background-color: var(--background-paper); /* Use custom color variable */
   padding: 10px 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better visibility */
+  width: 100%; /* Set width to 100% */
+  z-index: 999; /* Set a high z-index to ensure it's always on top */
+  height: var(--navbar-height); /* Use custom height variable */
 }
 
 .logo a {
@@ -85,6 +88,31 @@
   color: var(--text);
 }
 
-.profilePicture {
+.profilePictureButton {
   cursor: pointer;
+  background: none;
+  padding: 0;
+  border: none;
+}
+
+.profilePicture:hover {
+  filter: brightness(95%);
+}
+
+.profileMenuList li {
+  color: var(--text-primary);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+.profileMenuList li span {
+  margin-left: 0.5rem;
+}
+
+.profileMenuList li:hover {
+  background-color: var(--grey-200);
 }

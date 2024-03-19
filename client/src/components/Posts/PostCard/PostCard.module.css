@@ -4,6 +4,7 @@
     margin: 1rem 0;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     border-radius: 0.5rem;
+    position: relative;
 }
 
 .profile {
@@ -87,3 +88,35 @@
 .isCommentSectionActive > *:hover {
     color: var(--primary-dark);
 }
+
+.dropDownMenu {
+    position: absolute;
+    top: 1.5rem;
+    right: 1rem;
+}
+
+.dropDownMenuButton {
+    cursor: pointer;
+    background: none;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 100%;
+}
+
+.dropDownMenuButton:hover {
+    background-color: var(--grey-200);
+}
+
+.deletePost {
+    color: var(--danger-dark);
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 0.75rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+  
+  .deletePost:hover {
+    background-color: var(--grey-200);
+  }
