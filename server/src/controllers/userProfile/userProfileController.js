@@ -1,8 +1,19 @@
 import pool from "../../db/index.js";
 
+function isInt(value) {
+  return !isNaN(value) && 
+         parseInt(Number(value)) == value && 
+         !isNaN(parseInt(value, 10));
+}
+
 export const getUserProfile = async (req, res) => {
   try {
-    const userId = req.userId;
+    const userId = !req.params.userId ? req.userId : req.params.userId;
+
+    if (!isInt(userId)) {
+      return res.status(400).json({ message: "Invalid user ID" });
+    }
+
     const query =
       "SELECT username, email, profile_picture, registration_date FROM app_user WHERE user_id = $1";
     const result = await pool.query(query, [userId]);
@@ -13,6 +24,7 @@ export const getUserProfile = async (req, res) => {
 
     res.status(200).json({
       user: {
+        userId,
         username: user.username,
         email: user.email,
         profilePicture: user.profile_picture,

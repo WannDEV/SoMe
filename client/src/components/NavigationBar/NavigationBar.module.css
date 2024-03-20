@@ -2,7 +2,6 @@
   position: fixed; /* Change position to fixed */
   top: 0;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   background-color: var(--background-paper); /* Use custom color variable */
   padding: 10px 20px;
@@ -29,12 +28,13 @@
 .searchbar {
   position: relative; /* Add relative positioning */
   margin: 0 20px;
+  flex: 1;
 }
 
 .searchbar input[type="text"] {
   padding: 0.5rem;
   padding-left: 35px; /* Adjust padding to make space for the icon */
-  width: 40rem;
+  width: 25rem;
   border-radius: 2rem;
   background-color: var(--background-default); /* Use custom color variable */
   border: none;
@@ -114,5 +114,26 @@
 }
 
 .profileMenuList li:hover {
+  background-color: var(--grey-200);
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  margin: 0 1rem;
+}
+
+.links > a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  width: 5rem;
+  text-align: center;
+}
+
+.links > a:hover {
   background-color: var(--grey-200);
 }

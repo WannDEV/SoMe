@@ -1,9 +1,0 @@
-.container {
-  width: 22.5rem;
-  /* Friends box should stay in the same place even when scrolling */
-  position: relative;
-}
-
-.container > * {
-  margin-bottom: 1rem;
-}

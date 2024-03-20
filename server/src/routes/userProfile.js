@@ -9,7 +9,7 @@ const router = express.Router();
 router.use(validateJWT);
 
 // Rute til at få profilinformation om bruger
-router.get("/", userProfileController.getUserProfile);
+router.get("/:userId?", userProfileController.getUserProfile);
 
 // Rute til at opdatere profilinformation for bruger
 router.put("/", userProfileController.updateUserProfile);

@@ -9,10 +9,12 @@ import ProfilePicture from "../ProfilePicture/ProfilePicture";
 import MenuBar from "../MenuBar/MenuBar";
 import { useState } from "react";
 import { BiSolidLogOut } from "react-icons/bi";
+import { useRouter } from "next/navigation";
 
 const NavigationBar = () => {
   const { user, logout, loading } = useAuth();
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const router = useRouter();
 
   if (loading || !user) {
     return null;
@@ -29,8 +31,12 @@ const NavigationBar = () => {
           </Link>
         </div>
         <div className={styles.searchbar}>
-          <input type="text" placeholder="Search for people, groups etc..." />
+          <input type="text" placeholder="Search for people..." />
           <FaSearch size={18} className={styles.searchIcon} />
+        </div>
+        <div className={styles.links}>
+        <Link href="/">Feed</Link>
+          <Link href="/friends">Friends</Link>
         </div>
         <div className={styles.icons}>
           <Link href="#">
@@ -53,7 +59,10 @@ const NavigationBar = () => {
             placement="right"
           >
             <ul className={styles.profileMenuList}>
-              <li>
+              <li onClick={() => {
+                router.push(`/profile/${user.userId}`);
+                setIsProfileMenuOpen(false);
+              }}>
                 <ProfilePicture
                   src={user.profilePicture}
                   style={{ width: "1.5rem", height: "1.5rem" }}

@@ -12,8 +12,9 @@ DROP USER IF EXISTS social_media_api;
 -- Create database user and grant privileges
 CREATE USER social_media_api WITH PASSWORD 'demo123';
 -- NOTE: The grant commands needs to be run seperately in psql
--- GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO social_media_api;
--- GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO social_media_api;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO social_media_api;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO social_media_api;
+
 
 -- Create User Table
 CREATE TABLE app_user (
