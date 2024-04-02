@@ -1,14 +1,15 @@
 "use client";
 import LoginForm from "../../components/Auth/LoginForm";
-import Link from "next/link";
 import { WithRedirectIfAuthenticated } from "../../components/Auth/WithRedirectIfAuthenticated";
+import styles from "./page.module.css";
 
 const Login = () => {
   return (
-    <>
-      <LoginForm />
-      <Link href="/register">Register</Link>
-    </>
+    <div className={styles.background}>
+      <div className={styles.container}>
+        <LoginForm />
+      </div>
+    </div>
   );
 };
 

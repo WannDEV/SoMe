@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
 import styles from "./Posts.module.css";
 import PostCard from "./PostCard/PostCard";
-import api from "../../utils/api";
 import CreatePostCard from "./CreatePost/CreatePostCard";
 import { AiOutlineInbox } from "react-icons/ai";
 import { usePosts } from "../../contexts/PostsContext";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const Posts = () => {
   const { posts, loading } = usePosts();
@@ -21,6 +21,9 @@ const Posts = () => {
       {posts.map((post) => (
         <PostCard key={post.post_id} post={post} />
       ))}
+      {loading && (
+        <Skeleton count={3} height={200} className={styles.postSkeleton} />
+      )}
     </div>
   );
 };

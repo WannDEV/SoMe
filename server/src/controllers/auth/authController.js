@@ -8,28 +8,50 @@ export const register = async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     if (!email || !username || !password) {
-      return res.status(400).json({ message: "Missing required fields" });
+      return res.status(400).json({ general: "Missing required fields" });
     }
 
     // check if username is longer than 3 characters
     if (username.length < 3) {
       return res
         .status(400)
-        .json({ message: "Username must be at least 3 characters long" });
+        .json({ username: "Username must be at least 3 characters long" });
     }
 
     // check if email is valid
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return res.status(400).json({ message: "Invalid email" });
+      return res.status(400).json({ email: "Invalid email" });
     }
 
-    // check password complexity
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-    if (!passwordRegex.test(password)) {
+    // check password length
+    if (password.length < 8) {
       return res.status(400).json({
-        message:
-          "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number",
+        password: "Password must be at least 8 characters long",
+      });
+    }
+
+    // check for uppercase letter
+    const uppercaseRegex = /[A-Z]/;
+    if (!uppercaseRegex.test(password)) {
+      return res.status(400).json({
+        password: "Password must contain at least one uppercase letter",
+      });
+    }
+
+    // check for lowercase letter
+    const lowercaseRegex = /[a-z]/;
+    if (!lowercaseRegex.test(password)) {
+      return res.status(400).json({
+        password: "Password must contain at least one lowercase letter",
+      });
+    }
+
+    // check for number
+    const numberRegex = /[0-9]/;
+    if (!numberRegex.test(password)) {
+      return res.status(400).json({
+        password: "Password must contain at least one number",
       });
     }
 
@@ -40,7 +62,7 @@ export const register = async (req, res) => {
       req.body.username,
     ]);
     if (rows.length > 0) {
-      return res.status(409).json({ message: "User already exists" });
+      return res.status(409).json({ general: "User already exists" });
     }
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -69,19 +91,39 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
+    const password = req.body.password;
+    const email = req.body.email;
+
+    // Check for missing required fields
+    if (!email || !password) {
+      return res.status(400).json({
+        message: "Please enter your email address and password to log in.",
+      });
+    }
+
+    // Attempt to find user by email
     const query = "SELECT * FROM app_user WHERE email = $1";
-    const { rows } = await pool.query(query, [req.body.email]);
+    const { rows } = await pool.query(query, [email]);
+
     if (rows.length === 0) {
-      return res.status(404).json({ message: "User not found" });
+      // User not found - provide options for account creation or password reset
+      return res.status(404).json({
+        message:
+          "We couldn't find an account associated with that email address.",
+      });
     }
+
     const user = rows[0];
-    const passwordMatch = await bcrypt.compare(
-      req.body.password,
-      user.hashed_password
-    );
+
+    // Validate password
+    const passwordMatch = await bcrypt.compare(password, user.hashed_password);
     if (!passwordMatch) {
-      return res.status(401).json({ message: "Invalid password" });
+      return res.status(401).json({
+        message: "The password you entered is incorrect. Please try again.",
+      });
     }
+
+    // Successful login - generate and send auth token
     const token = createAuthJWT(user.user_id);
     res.cookie("authToken", token, {
       httpOnly: true,
@@ -96,7 +138,10 @@ export const login = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error); // Log the actual error for debugging
+    res.status(500).json({
+      message: "An unexpected error occurred. Please try again later.",
+    });
   }
 };
 
