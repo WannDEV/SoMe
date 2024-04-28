@@ -1,12 +1,11 @@
 import styles from "./CreatePost.module.css";
 import { useAuth } from "../../../contexts/AuthContext";
 import ProfilePicture from "../../ProfilePicture/ProfilePicture";
-import { useState, useRef } from "react";
-import { FaCloudUploadAlt } from "react-icons/fa";
+import { useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import api from "../../../utils/api";
-import Image from "next/image";
 import { usePosts } from "../../../contexts/PostsContext";
+import ImageSelection from "../../ImageSelection/ImageSelection";
 
 const CreatePost = (props) => {
   const { user } = useAuth();
@@ -14,51 +13,9 @@ const CreatePost = (props) => {
   const [text, setText] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedImagePreview, setSelectedImagePreview] = useState(null);
-  const [isDraggingOver, setIsDraggingOver] = useState(false);
-  const fileInputRef = useRef(null);
 
   const handleTextChange = (event) => {
     setText(event.target.value);
-  };
-
-  const handleImageChange = (event) => {
-    const selectedFile = event.target.files[0];
-    if (selectedFile) {
-      const reader = new FileReader();
-      reader.readAsDataURL(selectedFile); // For preview (optional)
-      reader.onloadend = () => {
-        setSelectedImagePreview(reader.result); // Update state with the data URL
-        setSelectedImage(selectedFile); // Update state with the Blob object
-      };
-    }
-  };
-
-  const handleDragOver = (event) => {
-    event.preventDefault();
-    setIsDraggingOver(true);
-  };
-
-  const handleDragLeave = () => {
-    setIsDraggingOver(false);
-  };
-
-  const handleDrop = (event) => {
-    event.preventDefault();
-    setIsDraggingOver(false);
-    const file = event.dataTransfer.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setSelectedImagePreview(reader.result);
-        setSelectedImage(file);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleRemoveImage = () => {
-    setSelectedImage(null);
-    setSelectedImagePreview(null);
   };
 
   const handleCreatePostClick = async () => {
@@ -123,47 +80,12 @@ const CreatePost = (props) => {
             value={text}
             onChange={handleTextChange}
           ></textarea>
-          {!selectedImagePreview && (
-            <div
-              className={`${styles.dropZone} ${
-                isDraggingOver ? styles.draggingOver : ""
-              }`}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-              onClick={() => fileInputRef.current.click()}
-            >
-              <input
-                type="file"
-                accept="image/png, image/gif, image/jpeg"
-                style={{ display: "none" }}
-                onChange={handleImageChange}
-                ref={fileInputRef}
-              />
-              <span>
-                <FaCloudUploadAlt />
-              </span>
-              <p>Click here or drag and drop an image to upload</p>
-            </div>
-          )}
-          {selectedImagePreview && (
-            <div className={styles.selectedImageContainer}>
-              <Image
-                src={selectedImagePreview}
-                alt="Selected"
-                className={styles.selectedImage}
-                layout="responsive"
-                width={500}
-                height={300}
-              />
-              <button
-                className={styles.removeImageButton}
-                onClick={handleRemoveImage}
-              >
-                <IoCloseOutline />
-              </button>
-            </div>
-          )}
+          <ImageSelection
+            image={selectedImage}
+            setImage={setSelectedImage}
+            imagePreview={selectedImagePreview}
+            setImagePreview={setSelectedImagePreview}
+          />
         </div>
         <button
           className={styles.createPostButton}

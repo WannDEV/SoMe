@@ -20,6 +20,9 @@ router.get("/posts", postManagementController.getPosts);
 // Rute til at udforske opslag
 router.get("/discover-posts", postManagementController.discoverPosts);
 
+// Rute til at få alle opslag fra en bestemt bruger
+router.get("/posts/all/:username", postManagementController.getUserPosts);
+
 // Rute til at få specifikt opslag ud fra ID
 router.get("/posts/:postId", postManagementController.getPost);
 

@@ -3,7 +3,6 @@ import styles from "./NavigationBar.module.css";
 import { useAuth } from "../../contexts/AuthContext";
 import { IoMdNotifications } from "react-icons/io";
 import { AiFillMessage } from "react-icons/ai";
-import { FaSearch } from "react-icons/fa";
 import Link from "next/link";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
 import MenuBar from "../MenuBar/MenuBar";
@@ -30,12 +29,8 @@ const NavigationBar = () => {
             </h1>
           </Link>
         </div>
-        <div className={styles.searchbar}>
-          <input type="text" placeholder="Search for people..." />
-          <FaSearch size={18} className={styles.searchIcon} />
-        </div>
         <div className={styles.links}>
-        <Link href="/">Feed</Link>
+          <Link href="/">Feed</Link>
           <Link href="/friends">Friends</Link>
         </div>
         <div className={styles.icons}>
@@ -59,10 +54,12 @@ const NavigationBar = () => {
             placement="right"
           >
             <ul className={styles.profileMenuList}>
-              <li onClick={() => {
-                router.push(`/profile/${user.userId}`);
-                setIsProfileMenuOpen(false);
-              }}>
+              <li
+                onClick={() => {
+                  router.push(`/profile/${user.userId}`);
+                  setIsProfileMenuOpen(false);
+                }}
+              >
                 <ProfilePicture
                   src={user.profilePicture}
                   style={{ width: "1.5rem", height: "1.5rem" }}

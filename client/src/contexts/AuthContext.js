@@ -1,14 +1,12 @@
 "use client";
 import { createContext, useContext, useState, useEffect } from "react";
 import api from "../utils/api";
-import { useRouter } from "next/navigation";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
 
   const login = (userData) => {
     setUser(userData);
@@ -40,7 +38,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, logout, loading, setUser }}>
       {children}
     </AuthContext.Provider>
   );

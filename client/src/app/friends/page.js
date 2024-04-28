@@ -1,7 +1,10 @@
 "use client";
 import { WithAuth } from "@/components/Auth/WithAuth";
 import { useEffect, useState } from "react";
-import api from "../../utils/api"
+import api from "../../utils/api";
+import FindFriends from "@/components/Friends/FindFriends/FindFriends";
+import styles from "./page.module.css";
+import { FriendsProvider } from "@/contexts/FriendsContext";
 
 const Friends = () => {
   const [friends, setFriends] = useState([]);
@@ -13,12 +16,14 @@ const Friends = () => {
     });
   }, []);
 
-
   return (
-    <>
-      <h1>Friends</h1>
-    </>
+    <FriendsProvider>
+      <div className={styles.container}>
+        <h1 className={styles.title}>Manage Friends</h1>
+        <FindFriends />
+      </div>
+    </FriendsProvider>
   );
-}
+};
 
 export default WithAuth(Friends);

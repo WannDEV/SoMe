@@ -1,0 +1,77 @@
+.container {
+  width: 100%;
+  background-color: var(--background-paper);
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-size: 1.3rem;
+  margin: 0.5rem 0;
+  color: var(--text-primary);
+}
+
+.searchbar {
+  position: relative; /* Add relative positioning */
+}
+
+.searchbar input[type="text"] {
+  padding: 0.5rem;
+  padding-left: 35px; /* Adjust padding to make space for the icon */
+  width: 25rem;
+  border-radius: 2rem;
+  background-color: var(--background-default); /* Use custom color variable */
+  border: none;
+  outline: none;
+}
+
+.searchbar input[type="text"]:hover {
+  background-color: var(--grey-200); /* Change background color on hover */
+}
+
+.searchbar input[type="text"]:focus {
+  outline: 1px solid var(--grey-300); /* Add focus outline */
+}
+
+.searchIcon {
+  color: var(--text-primary);
+  position: absolute;
+  left: 10px; /* Adjust the position as needed */
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* Ensure the icon doesn't interfere with input events */
+}
+
+.infoText {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin: 2rem 0;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  margin: 1rem 0;
+  color: var(--text-primary);
+}
+
+.subtitle span {
+  color: var(--primary-light);
+}
+
+.searchResults {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  background-color: var(--background-default);
+  margin: 1rem 0;
+}

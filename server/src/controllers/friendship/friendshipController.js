@@ -85,3 +85,18 @@ export const removeFriend = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const searchFriends = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const { searchQuery } = req.params;
+    console.log(searchQuery);
+    const query =
+      "SELECT user_id, username, profile_picture FROM app_user WHERE username ILIKE $1 AND user_id != $2";
+    const values = [`%${searchQuery}%`, userId];
+    const result = await pool.query(query, values);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

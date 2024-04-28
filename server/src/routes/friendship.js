@@ -29,4 +29,7 @@ router.get("/friends/:friendStatus", friendshipController.getFriends);
 // Rute til at fjerne en ven
 router.delete("/friends/:friendId", friendshipController.removeFriend);
 
+// Rute til at søge efter venner
+router.get("/friends/search/:searchQuery", friendshipController.searchFriends);
+
 export default router;

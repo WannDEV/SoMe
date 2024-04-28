@@ -16,6 +16,10 @@
   color: var(--text-primary); /* Use custom color variable */
 }
 
+.logo {
+  flex: 1;
+}
+
 .logo h1 {
   font-size: 1.7rem;
   font-weight: bold;
@@ -23,39 +27,6 @@
 
 .logo h1 span {
   color: var(--primary-color);
-}
-
-.searchbar {
-  position: relative; /* Add relative positioning */
-  margin: 0 20px;
-  flex: 1;
-}
-
-.searchbar input[type="text"] {
-  padding: 0.5rem;
-  padding-left: 35px; /* Adjust padding to make space for the icon */
-  width: 25rem;
-  border-radius: 2rem;
-  background-color: var(--background-default); /* Use custom color variable */
-  border: none;
-  outline: none;
-}
-
-.searchbar input[type="text"]:hover {
-  background-color: var(--grey-200); /* Change background color on hover */
-}
-
-.searchbar input[type="text"]:focus {
-  outline: 1px solid var(--grey-300); /* Add focus outline */
-}
-
-.searchIcon {
-  color: var(--text-primary);
-  position: absolute;
-  left: 10px; /* Adjust the position as needed */
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none; /* Ensure the icon doesn't interfere with input events */
 }
 
 .icons a {

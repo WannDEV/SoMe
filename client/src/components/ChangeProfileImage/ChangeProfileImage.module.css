@@ -1,0 +1,41 @@
+.changeImageContainer {
+  width: 30rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.saveButton  {
+  background-color: var(--primary-light);
+  color: white;
+  padding: 0.5rem 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.saveButton:hover {
+  background-color: var(--primary-dark);
+}
+
+.saveButton:disabled {
+  background-color: var(--grey-400);
+  cursor: not-allowed;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem; /* Change this line */
+  background-color: var(--grey-200);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.closeButton:hover {
+  background-color: var(--grey-300);
+}

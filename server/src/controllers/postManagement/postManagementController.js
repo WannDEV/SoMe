@@ -77,16 +77,32 @@ export const getPosts = async (req, res) => {
 
 export const discoverPosts = async (req, res) => {
   try {
+    const userId = req.userId;
+
     // Forespørgsel til at hente de nyeste opslag med en begrænsning på 10 opslag
     const query = `
-            SELECT *
-            FROM post
-            ORDER BY post_date DESC
-            LIMIT 10; 
-        `;
-    const result = await pool.query(query);
+        SELECT 
+          p.post_id,
+          p.user_id,
+          p.content,
+          p.img,
+          p.post_date,
+          u.username,
+          u.profile_picture,
+          (SELECT COUNT(*) FROM post_like WHERE post_like.post_id = p.post_id) AS likes_count,
+          (SELECT COUNT(*) FROM post_comment WHERE post_comment.post_id = p.post_id) AS comments_count,
+          (SELECT COUNT(*) FROM post_share WHERE post_share.post_id = p.post_id) AS shares_count,
+          (SELECT EXISTS(SELECT 1 FROM post_like WHERE post_like.post_id = p.post_id AND post_like.user_id = $1)) AS has_liked
+        FROM post p
+        INNER JOIN app_user u ON p.user_id = u.user_id
+        ORDER BY p.post_date DESC
+        LIMIT 10
+    `;
+
+    const result = await pool.query(query, [userId]);
     res.status(200).json(result.rows);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -121,6 +137,48 @@ export const getPost = async (req, res) => {
     }
 
     res.status(200).json(result.rows[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+// Rute til at få alle opslag for en bestemt bruger
+export const getUserPosts = async (req, res) => {
+  try {
+    // Hent brugerens ID fra deres navn
+    const username = req.params.username;
+    const userQuery = "SELECT user_id FROM app_user WHERE username = $1";
+    const userResult = await pool.query(userQuery, [username]);
+    if (userResult.rows.length === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const userId = userResult.rows[0].user_id;
+
+    // Forespørgsel til at hente alle opslag for en bestemt bruger
+    const postsQuery = `
+      SELECT 
+        p.post_id,
+        p.user_id,
+        p.content,
+        p.img,
+        p.post_date,
+        u.username,
+        u.profile_picture,
+        (SELECT COUNT(*) FROM post_like WHERE post_like.post_id = p.post_id) AS likes_count,
+        (SELECT COUNT(*) FROM post_comment WHERE post_comment.post_id = p.post_id) AS comments_count,
+        (SELECT COUNT(*) FROM post_share WHERE post_share.post_id = p.post_id) AS shares_count,
+        (SELECT EXISTS(SELECT 1 FROM post_like WHERE post_like.post_id = p.post_id AND post_like.user_id = $1)) AS has_liked
+      FROM post p
+      INNER JOIN app_user u ON p.user_id = u.user_id
+      WHERE p.user_id = $1
+      ORDER BY p.post_date DESC
+    `;
+
+    const postsResult = await pool.query(postsQuery, [userId]);
+
+    res.status(200).json(postsResult.rows);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });

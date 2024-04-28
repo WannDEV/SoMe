@@ -4,6 +4,7 @@
   display: flex;
   justify-content: center;
   width: 1400px;
+  flex-direction: column;
 }
 
 .notFound {
@@ -19,5 +20,45 @@
 .profileInformation {
   display: flex;
   width: 100%;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.profileInformation h1 {
+  font-size: 2rem;
+  color: var(--text-primary);
+}
+
+.profileInformation p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+.profilePicture {
+  width: 8rem;
+  height: 8rem;
+  margin-right: 1rem;
+}
+
+.editProfilePicture {
+  margin-left: auto;
+  margin-right: 1rem;
+  background-color: var(--primary-color);
+  color: var(--background-paper);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.editProfilePicture:hover {
+  background-color: var(--primary-dark);
+}
+
+.postsContainer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin: 2rem 0;
 }

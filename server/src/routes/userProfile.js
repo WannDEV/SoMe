@@ -14,6 +14,9 @@ router.get("/:userId?", userProfileController.getUserProfile);
 // Rute til at opdatere profilinformation for bruger
 router.put("/", userProfileController.updateUserProfile);
 
+// Rute til at ændre brugerprofilbillede
+router.put("/profile-picture", userProfileController.updateUserProfilePicture);
+
 // Rute til at slette brugerprofil
 router.delete("/", userProfileController.deleteUserProfile);
 
