@@ -15,7 +15,7 @@ router.use(validateJWT);
 router.post("/friend-request", friendshipController.sendFriendRequest);
 
 // Rute til at acceptere en venneanmodning
-router.post("/friend-request/accept", friendshipController.acceptFriendRequest);
+router.put("/friend-request/accept", friendshipController.acceptFriendRequest);
 
 // Rute til at afvise en venneanmodning
 router.delete(

@@ -18,9 +18,10 @@ export const acceptFriendRequest = async (req, res) => {
   try {
     const userId = req.userId;
     const { friendId } = req.body;
+    console.log("friendId", friendId)
     const query =
       "UPDATE friendship SET status = $1 WHERE user_id1 = $2 AND user_id2 = $3 RETURNING *";
-    const values = ["accepted", friendId, userId];
+    const values = ["accepted", userId, friendId];
     const result = await pool.query(query, values);
     res.status(200).json(result.rows[0]);
   } catch (error) {
@@ -51,15 +52,15 @@ export const getFriends = async (req, res) => {
 
     if (friendStatus === "pending") {
       query =
-        "SELECT app_user.user_id, app_user.username, app_user.profile_picture FROM friendship JOIN app_user ON friendship.user_id2 = app_user.user_id WHERE user_id1 = $1 AND status = $2";
+        "SELECT au.user_id, au.username, au.profile_picture, f.status FROM app_user au JOIN friendship f ON au.user_id = f.user_id2 WHERE user_id1 = $1 AND status = $2;";
       values = [userId, "pending"];
     } else if (friendStatus === "accepted") {
       query =
-        "SELECT app_user.user_id, app_user.username, app_user.profile_picture FROM friendship JOIN app_user ON friendship.user_id2 = app_user.user_id WHERE user_id1 = $1 AND status = $2";
+        "SELECT au.user_id, au.username, au.profile_picture, f.status FROM app_user au JOIN friendship f ON au.user_id = f.user_id2 WHERE user_id1 = $1 AND status = $2";
       values = [userId, "accepted"];
     } else if (friendStatus === "all") {
       query =
-        "SELECT app_user.user_id, app_user.username, app_user.profile_picture FROM friendship JOIN app_user ON friendship.user_id2 = app_user.user_id WHERE user_id1 = $1";
+        "SELECT au.user_id, au.username, au.profile_picture, f.status FROM app_user au JOIN friendship f ON au.user_id = f.user_id2 WHERE user_id1 = $1;";
       values = [userId];
     } else {
       return res.status(400).json({ message: "Invalid friend status" });
@@ -92,7 +93,7 @@ export const searchFriends = async (req, res) => {
     const { searchQuery } = req.params;
     console.log(searchQuery);
     const query =
-      "SELECT user_id, username, profile_picture FROM app_user WHERE username ILIKE $1 AND user_id != $2";
+      "SELECT au.user_id, au.username, au.profile_picture, f.status FROM app_user au LEFT JOIN friendship f ON au.user_id = f.user_id2 WHERE au.username ILIKE $1 AND au.user_id != $2;";
     const values = [`%${searchQuery}%`, userId];
     const result = await pool.query(query, values);
     res.status(200).json(result.rows);

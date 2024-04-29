@@ -25,7 +25,7 @@ const CommentSection = ({
       .then((response) => {
         // handle success
         console.log("Comments fetched:", response.data);
-        setComments(response.data);
+        setComments(response.data.reverse());
       })
       .catch((error) => {
         // handle error

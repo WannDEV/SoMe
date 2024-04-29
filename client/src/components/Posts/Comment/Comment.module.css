@@ -26,6 +26,8 @@
 .content {
   color: var(--text-primary);
   font-size: 0.9rem;
+  word-break: break-all;
+  text-wrap: wrap;
 }
 
 .date {

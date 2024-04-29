@@ -31,11 +31,46 @@
   cursor: pointer;
 }
 
+.addButton:hover {
+  background-color: var(--primary-dark);
+}
+
 .removeButton {
-  background-color: var(--danger-color);
+  background-color: var(--danger-light);
   color: white;
   padding: 0.5rem 1.5rem;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.removeButton:hover {
+  background-color: var(--danger-dark);
+}
+
+.acceptButton {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 0.4rem;
+}
+
+.acceptButton:hover {
+  background-color: var(--primary-dark);
+}
+
+.declineButton {
+  background-color: var(--danger-light);
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.declineButton:hover {
+  background-color: var(--danger-dark);
 }

@@ -45,7 +45,7 @@ const FindFriends = () => {
       {searchQuery && (
         <div className={styles.searchResults}>
           <h4 className={styles.subtitle}>
-            <span>{friends.length}</span> results found
+            <span>{friends.length}</span> result(s) found
           </h4>
           {friends.length === 0 && <TbMoodEmpty size={70} />}
           <FriendsList displayedFriends={friends} />
@@ -53,7 +53,7 @@ const FindFriends = () => {
       )}
       {!searchQuery && (
         <p className={styles.infoText}>
-          Friends will be displayed here as you start typing.
+          Search results will be displayed here as you start typing.
         </p>
       )}
     </div>
