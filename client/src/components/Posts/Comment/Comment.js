@@ -31,7 +31,10 @@ const Comment = (props) => {
   return (
     <div className={styles.container}>
       <div className={styles.profile}>
-        <ProfilePicture src={comment.profile_picture} />
+        <ProfilePicture
+          src={comment.profile_picture}
+          userId={comment.user_id}
+        />
       </div>
       <div>
         <div className={styles.commentContainer}>

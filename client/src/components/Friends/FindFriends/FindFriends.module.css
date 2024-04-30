@@ -29,6 +29,12 @@
   outline: none;
 }
 
+@media (max-width: 25rem) {
+  .searchbar input[type="text"] {
+    width: 100%; /* Adjust width for smaller screens */
+  }
+}
+
 .searchbar input[type="text"]:hover {
   background-color: var(--grey-200); /* Change background color on hover */
 }
@@ -50,6 +56,7 @@
   font-size: 1rem;
   color: var(--text-secondary);
   margin: 2rem 0;
+  text-align: center;
 }
 
 .subtitle {

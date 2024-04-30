@@ -46,6 +46,7 @@ const NavigationBar = () => {
                 <ProfilePicture
                   src={user.profilePicture}
                   customClass={styles.profilePicture}
+                  notClickable
                 />
               </button>
             }
@@ -63,6 +64,8 @@ const NavigationBar = () => {
                 <ProfilePicture
                   src={user.profilePicture}
                   style={{ width: "1.5rem", height: "1.5rem" }}
+                  customClass={styles.profilePicture}
+                  notClickable
                 />
                 <span>My Profile</span>
               </li>

@@ -6,12 +6,12 @@ import { usePosts } from "../../contexts/PostsContext";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-const Posts = () => {
+const Posts = (props) => {
   const { posts, loading } = usePosts();
 
   return (
     <div className={styles.container}>
-      <CreatePostCard />
+      <CreatePostCard hide={props.hideCreatePost} />
       {!loading && posts.length === 0 && (
         <div className={styles.noPosts}>
           <AiOutlineInbox size={100} />

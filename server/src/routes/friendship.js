@@ -19,7 +19,7 @@ router.put("/friend-request/accept", friendshipController.acceptFriendRequest);
 
 // Rute til at afvise en venneanmodning
 router.delete(
-  "/friend-request/reject",
+  "/friend-request/reject/:friendId",
   friendshipController.rejectFriendRequest
 );
 
@@ -31,5 +31,11 @@ router.delete("/friends/:friendId", friendshipController.removeFriend);
 
 // Rute til at søge efter venner
 router.get("/friends/search/:searchQuery", friendshipController.searchFriends);
+
+// Rute til at hente vennestatus
+router.get(
+  "/friends/all/statuses",
+  friendshipController.getAllFriendshipStatuses
+);
 
 export default router;

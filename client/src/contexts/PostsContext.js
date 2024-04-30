@@ -1,14 +1,12 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import api from "../utils/api";
-import { useAuth } from "./AuthContext";
 
 const PostsContext = createContext();
 
-export const PostsProvider = ({ children, postType }) => {
+export const PostsProvider = ({ children, postType, username }) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { user } = useAuth();
 
   const fetchPosts = async () => {
     try {
@@ -19,7 +17,7 @@ export const PostsProvider = ({ children, postType }) => {
           postEndPoint = "post-management/discover-posts";
           break;
         case "user":
-          postEndPoint = `post-management/posts/all/${user.username}`;
+          postEndPoint = `post-management/posts/all/${username}`;
           break;
         case "friends":
           postEndPoint = `post-management/posts`;
@@ -34,10 +32,15 @@ export const PostsProvider = ({ children, postType }) => {
       setLoading(false);
     } catch (error) {
       console.error(error);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
+    if (postType === "user" && !username) {
+      setLoading(false);
+      return;
+    }
     fetchPosts();
   }, [postType]);
 

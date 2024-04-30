@@ -1,6 +1,7 @@
 .friendsList {
   list-style-type: none;
   width: 100%;
+  padding: 0;
 }
 
 .friendsList li {
@@ -73,4 +74,9 @@
 
 .declineButton:hover {
   background-color: var(--danger-dark);
+}
+
+.pending {
+  color: var(--grey-400);
+  font-size: 0.9rem;
 }

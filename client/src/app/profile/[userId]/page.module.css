@@ -3,8 +3,14 @@
   padding: 0 20px; 
   display: flex;
   justify-content: center;
-  width: 1400px;
+  width: 1200px;
   flex-direction: column;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    width: 100%;
+  }
 }
 
 .notFound {
@@ -36,9 +42,13 @@
 }
 
 .profilePicture {
-  width: 8rem;
-  height: 8rem;
-  margin-right: 1rem;
+  width: 8rem !important;
+  height: 8rem !important;
+  margin-right: 1rem !important;
+}
+
+.hideEditProfilePictureButton {
+  display: none;
 }
 
 .editProfilePicture {
@@ -50,6 +60,33 @@
   padding: 0.5rem 1rem;
   border-radius: 5px;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .profileInformation {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profileInformation h1 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .profileInformation p {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  .profilePicture {
+    width: 6rem;
+    height: 6rem;
+    margin: 0;
+  }
+
+  .editProfilePicture {
+    margin: 1rem 0 0 0;
+  }
 }
 
 .editProfilePicture:hover {

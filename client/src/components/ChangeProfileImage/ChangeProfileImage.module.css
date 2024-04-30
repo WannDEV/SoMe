@@ -7,6 +7,12 @@
   position: relative;
 }
 
+@media (max-width: 768px) {
+  .changeImageContainer {
+    width: 100%;
+  }
+}
+
 .saveButton  {
   background-color: var(--primary-light);
   color: white;

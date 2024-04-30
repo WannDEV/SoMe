@@ -64,6 +64,7 @@ const PostCard = (props) => {
         <ProfilePicture
           src={post.profile_picture}
           style={{ marginRight: "0.5rem" }}
+          userId={post.user_id}
         />
         <div>
           <h4>{post.username}</h4>

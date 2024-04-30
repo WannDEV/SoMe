@@ -2,6 +2,12 @@
   width: 30rem;
 }
 
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+  }
+}
+
 .title {
   font-size: 1.3rem;
   color: var(--text-primary);

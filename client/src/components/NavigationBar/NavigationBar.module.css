@@ -29,7 +29,13 @@
   color: var(--primary-color);
 }
 
-.icons a {
+@media screen and (max-width: 768px) {
+  .logo h1 {
+    font-size: 1.4rem;
+  }
+}
+
+.icons a:not(.profileClick) {
   color: var(--text-primary); /* Use custom color variable */
   text-decoration: none;
   display: flex;
@@ -39,7 +45,7 @@
   background-color: var(--grey-200); /* Use custom color variable */
 }
 
-.icons a:hover {
+.icons a:hover:not(.profileClick) {
   background-color: var(--grey-300); /* Change background color on hover */
 }
 
@@ -47,6 +53,12 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .icons a {
+    display: none;
+  }
 }
 
 .icons:last-child {
@@ -64,6 +76,8 @@
   background: none;
   padding: 0;
   border: none;
+  width: 100%;
+  height: 100%;
 }
 
 .profilePicture:hover {
@@ -107,4 +121,19 @@
 
 .links > a:hover {
   background-color: var(--grey-200);
+}
+
+@media screen and (max-width: 768px) {
+  .links {
+    margin: 0 0.5rem;
+  }
+
+  .links > a {
+    padding: 0.5rem 0.2rem;
+    width: 4.2rem;
+  }
+
+  .icons:last-child {
+    margin-right: 0;
+  }
 }

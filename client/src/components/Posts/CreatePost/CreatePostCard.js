@@ -19,13 +19,14 @@ const CreatePostCard = (props) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${props.hide && styles.hide}`}>
       <h3 className={styles.title}>Create post</h3>
       <hr className={styles.line} />
       <div className={styles.innerContainer}>
         <ProfilePicture
           src={user.profilePicture}
           style={{ marginRight: "1rem" }}
+          userId={user.userId}
         />
         <button className={styles.createPostButton} onClick={openModal}>
           {`What's on your mind, ${user.username}?`}

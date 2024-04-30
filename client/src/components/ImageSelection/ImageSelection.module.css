@@ -46,3 +46,9 @@
   cursor: pointer;
   padding: 0.5rem;
 }
+
+.dropText {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin: 0 0.5rem;
+}

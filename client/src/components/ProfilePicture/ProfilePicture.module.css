@@ -4,3 +4,8 @@
   width: 2.5rem;
   height: 2.5rem;
 }
+
+.profilePic:hover {
+  filter: brightness(90%);
+  cursor: pointer;
+}

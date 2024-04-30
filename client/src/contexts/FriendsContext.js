@@ -6,11 +6,11 @@ const FriendsContext = createContext();
 export const FriendsProvider = ({ children }) => {
   const [friends, setFriends] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [friendshipStatuses, setFriendshipStatuses] = useState([]);
 
   const fetchFriends = async () => {
     try {
       const response = await api.get("friendship/friends/all");
-      console.log(response.data);
       setFriends(response.data);
       setLoading(false);
     } catch (error) {
@@ -18,24 +18,40 @@ export const FriendsProvider = ({ children }) => {
     }
   };
 
+  const fetchFriendshipStatuses = async () => {
+    try {
+      const response = await api.get("friendship/friends/all/statuses");
+      console.log(response.data);
+      setFriendshipStatuses(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
+    setLoading(true);
     fetchFriends();
+    fetchFriendshipStatuses();
   }, []);
 
   const removeFriend = async (friendId) => {
-    try {
-      await api.delete(`friendship/friends/${friendId}`);
-      setFriends(friends.filter((friend) => friend.friend_id !== friendId));
-    } catch (error) {
-      console.error("Error deleting friend:", error);
-    }
+    setFriends(friends.filter((friend) => friend.user_id !== friendId));
   };
 
   const addFriend = (newFriend) => {
     setFriends([newFriend, ...friends]);
   };
 
-  const value = { friends, loading, removeFriend, addFriend };
+  const value = {
+    friends,
+    loading,
+    removeFriend,
+    addFriend,
+    fetchFriends,
+    friendshipStatuses,
+    fetchFriendshipStatuses,
+  };
 
   return (
     <FriendsContext.Provider value={value}>{children}</FriendsContext.Provider>

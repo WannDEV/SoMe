@@ -70,6 +70,7 @@ const CreatePost = (props) => {
           <ProfilePicture
             src={user.profilePicture}
             style={{ marginRight: "0.5rem" }}
+            userId={user.userId}
           />
           <p>{user.username}</p>
         </div>

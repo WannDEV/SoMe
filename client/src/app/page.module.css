@@ -24,6 +24,17 @@
   text-align: center;
 }
 
+@media (max-width: 768px) {
+  .feedTypeButton {
+    width: 6rem;
+    font-size: 0.8rem;
+  }
+
+  .container {
+    margin: 1rem auto;
+  }
+}
+
 .feedTypeButton:hover {
   background-color: var(--primary-color);
   color: var(--background-paper);

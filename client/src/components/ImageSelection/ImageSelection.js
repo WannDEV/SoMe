@@ -70,7 +70,9 @@ const ImageSelection = ({ image, setImage, imagePreview, setImagePreview }) => {
           <span>
             <FaCloudUploadAlt />
           </span>
-          <p>Click here or drag and drop an image to upload</p>
+          <p className={styles.dropText}>
+            Click here or drag and drop an image to upload
+          </p>
         </div>
       )}
       {imagePreview && (

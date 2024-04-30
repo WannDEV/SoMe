@@ -93,7 +93,7 @@ export const getComments = async (req, res) => {
   try {
     const postId = req.params.postId;
     const query =
-      "SELECT post_comment.comment_id, post_comment.content, post_comment.comment_date, app_user.username, app_user.profile_picture FROM post_comment INNER JOIN app_user ON post_comment.user_id = app_user.user_id WHERE post_comment.post_id = $1";
+      "SELECT post_comment.comment_id, post_comment.content, post_comment.comment_date, app_user.username, app_user.profile_picture, app_user.user_id FROM post_comment INNER JOIN app_user ON post_comment.user_id = app_user.user_id WHERE post_comment.post_id = $1";
     const values = [postId];
     const result = await pool.query(query, values);
     res.status(200).json(result.rows);
