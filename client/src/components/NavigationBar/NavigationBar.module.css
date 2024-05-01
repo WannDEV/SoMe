@@ -9,6 +9,7 @@
   width: 100%; /* Set width to 100% */
   z-index: 999; /* Set a high z-index to ensure it's always on top */
   height: var(--navbar-height); /* Use custom height variable */
+  justify-content: space-between;
 }
 
 .logo a {
@@ -17,7 +18,7 @@
 }
 
 .logo {
-  flex: 1;
+  /* flex: 1; */
 }
 
 .logo h1 {
@@ -35,7 +36,7 @@
   }
 }
 
-.icons a:not(.profileClick) {
+.icons a {
   color: var(--text-primary); /* Use custom color variable */
   text-decoration: none;
   display: flex;
@@ -45,7 +46,7 @@
   background-color: var(--grey-200); /* Use custom color variable */
 }
 
-.icons a:hover:not(.profileClick) {
+.icons a:hover {
   background-color: var(--grey-300); /* Change background color on hover */
 }
 

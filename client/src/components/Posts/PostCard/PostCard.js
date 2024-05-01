@@ -26,7 +26,7 @@ const PostCard = (props) => {
     if (!liked == true) {
       // handle add like
       api
-        .post(`http://localhost:2000/post-interaction/${post.post_id}/like`)
+        .post(`post-interaction/${post.post_id}/like`)
         .then((response) => {
           // handle success
           console.log("Like added:", response.data);
@@ -40,7 +40,7 @@ const PostCard = (props) => {
     } else {
       // function to handle remove like
       api
-        .delete(`http://localhost:2000/post-interaction/${post.post_id}/like`)
+        .delete(`post-interaction/${post.post_id}/like`)
         .then((response) => {
           // handle success
           console.log("Like removed:", response.data);
