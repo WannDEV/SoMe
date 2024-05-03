@@ -1,24 +1,20 @@
 .navbar {
-  position: fixed; /* Change position to fixed */
+  position: fixed; 
   top: 0;
   display: flex;
   align-items: center;
-  background-color: var(--background-paper); /* Use custom color variable */
+  background-color: var(--background-paper);
   padding: 10px 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better visibility */
-  width: 100%; /* Set width to 100% */
-  z-index: 999; /* Set a high z-index to ensure it's always on top */
-  height: var(--navbar-height); /* Use custom height variable */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  width: 100%; 
+  z-index: 999; 
+  height: var(--navbar-height); 
   justify-content: space-between;
 }
 
 .logo a {
   text-decoration: none;
-  color: var(--text-primary); /* Use custom color variable */
-}
-
-.logo {
-  /* flex: 1; */
+  color: var(--text-primary); 
 }
 
 .logo h1 {
@@ -37,17 +33,17 @@
 }
 
 .icons a {
-  color: var(--text-primary); /* Use custom color variable */
+  color: var(--text-primary); 
   text-decoration: none;
   display: flex;
   align-items: center;
   border-radius: 100%;
   padding: 0.5rem;
-  background-color: var(--grey-200); /* Use custom color variable */
+  background-color: var(--grey-200); 
 }
 
 .icons a:hover {
-  background-color: var(--grey-300); /* Change background color on hover */
+  background-color: var(--grey-300); 
 }
 
 .icons {

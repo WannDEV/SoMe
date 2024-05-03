@@ -29,19 +29,15 @@
   --grey-800: #424242;
   --grey-900: #212121;
 
-  /* Text colors */
   --text-primary: var(--grey-900);
   --text-secondary: var(--grey-600);
   --text-disabled: var(--grey-500);
   
-  /* Background colors */
   --background-default: var(--grey-100);
   --background-paper: #fff;
 
-  /* Navbar height */
   --navbar-height: 3.5rem;
 
-  /* Breakpoints */
   --screen-sm: 640px;
   --screen-md: 768px;
   --screen-lg: 1024px;

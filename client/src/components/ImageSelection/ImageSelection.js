@@ -1,34 +1,39 @@
-import { useState, useRef } from "react";
-import { FaCloudUploadAlt } from "react-icons/fa";
-import { IoCloseOutline } from "react-icons/io5";
-import Image from "next/image";
-import styles from "./ImageSelection.module.css";
+import { useState, useRef } from "react"; // Importér useState og useRef-hooks fra React
+import { FaCloudUploadAlt } from "react-icons/fa"; // Importér ikonkomponenten for upload-ikonet fra react-icons/fa
+import { IoCloseOutline } from "react-icons/io5"; // Importér ikonkomponenten for lukke-ikonet fra react-icons/io5
+import Image from "next/image"; // Importér Image-komponenten fra Next.js
+import styles from "./ImageSelection.module.css"; // Importér CSS-stilarter fra den lokale fil "ImageSelection.module.css"
 
+// Komponent til billedvalg
 const ImageSelection = ({ image, setImage, imagePreview, setImagePreview }) => {
-  const [isDraggingOver, setIsDraggingOver] = useState(false);
-  const fileInputRef = useRef(null);
+  const [isDraggingOver, setIsDraggingOver] = useState(false); // State til at spore, om brugeren trækker et billede over området
+  const fileInputRef = useRef(null); // Ref til inputelement til filvalg
 
+  // Funktion til håndtering af billedændring
   const handleImageChange = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
       const reader = new FileReader();
-      reader.readAsDataURL(selectedFile); // For preview (optional)
+      reader.readAsDataURL(selectedFile);
       reader.onloadend = () => {
-        setImagePreview(reader.result); // Update state with the data URL
-        setImage(selectedFile); // Update state with the Blob object
+        setImagePreview(reader.result); // Indstil billedet til forhåndsvisning
+        setImage(selectedFile); // Indstil billedet
       };
     }
   };
 
+  // Funktion til at håndtere trækover-effekten
   const handleDragOver = (event) => {
     event.preventDefault();
     setIsDraggingOver(true);
   };
 
+  // Funktion til at håndtere trækforlader-effekten
   const handleDragLeave = () => {
     setIsDraggingOver(false);
   };
 
+  // Funktion til at håndtere slip-effekten
   const handleDrop = (event) => {
     event.preventDefault();
     setIsDraggingOver(false);
@@ -36,13 +41,14 @@ const ImageSelection = ({ image, setImage, imagePreview, setImagePreview }) => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImagePreview(reader.result);
-        setImage(file);
+        setImagePreview(reader.result); // Indstil billedet til forhåndsvisning
+        setImage(file); // Indstil billedet
       };
       reader.readAsDataURL(file);
     }
   };
 
+  // Funktion til at fjerne det valgte billede
   const handleRemoveImage = () => {
     setImage(null);
     setImagePreview(null);
@@ -97,4 +103,4 @@ const ImageSelection = ({ image, setImage, imagePreview, setImagePreview }) => {
   );
 };
 
-export default ImageSelection;
+export default ImageSelection; // Eksportér ImageSelection-komponenten

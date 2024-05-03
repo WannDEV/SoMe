@@ -1,9 +1,10 @@
+// Funktion til at formatere en tidsstempel til en dato i en bestemt formatering
 export function formatTimestampToDate(timestampString) {
-  // Try parsing the timestamp string
   try {
+    // Konverterer tidsstempelstrengen til en datoobjekt
     const timestamp = new Date(timestampString);
 
-    // Define the desired format options
+    // Opsætning af formateringsindstillinger for datoen
     const options = {
       day: "numeric",
       month: "long",
@@ -13,53 +14,58 @@ export function formatTimestampToDate(timestampString) {
       hour12: true,
     };
 
-    // Format the date according to the options
+    // Konverterer tidsstempel til en formateret datostring
     const formattedTime = timestamp.toLocaleDateString("en-US", options);
 
-    // Replace "AM" or "PM" with lowercase equivalents
+    // Konverterer AM/PM til små bogstaver og returnerer den formaterede datostring
     return formattedTime.replace(/ (AM|PM)$/, (match) => match.toLowerCase());
   } catch (error) {
+    // Håndtering af fejl, hvis tidsstempelstrengen er ugyldig
     console.error(
       "Invalid timestamp format. Please provide a valid ISO 8601 string."
     );
-    return null; // Or return any appropriate value in case of error
+    return null; // Returnerer null i tilfælde af fejl
   }
 }
 
+// Funktion til at formatere en tidsstempel til et 'for n tid siden' format
 export function formatTimestampToTimeAgo(timestampString) {
-  // Try parsing the timestamp string
   try {
+    // Konverterer tidsstempelstrengen til et datoobjekt
     const timestamp = new Date(timestampString);
-    const now = new Date();
+    const now = new Date(); // Dagens dato og tid
 
-    // Calculate the difference in milliseconds
+    // Beregning af forskellen mellem nu og tidsstempel
     const difference = now - timestamp;
 
-    // Define the time units
+    // Definition af tidsenheder og deres værdier i millisekunder
     const timeUnits = [
-      { unit: "year", value: 31536000000 },
-      { unit: "month", value: 2592000000 },
-      { unit: "day", value: 86400000 },
-      { unit: "hour", value: 3600000 },
-      { unit: "minute", value: 60000 },
-      { unit: "second", value: 1000 },
+      { unit: "year", value: 31536000000 }, // Antal millisekunder på et år
+      { unit: "month", value: 2592000000 }, // Antal millisekunder på en måned
+      { unit: "day", value: 86400000 }, // Antal millisekunder på en dag
+      { unit: "hour", value: 3600000 }, // Antal millisekunder på en time
+      { unit: "minute", value: 60000 }, // Antal millisekunder på et minut
+      { unit: "second", value: 1000 }, // Antal millisekunder på et sekund
     ];
 
-    // Iterate through the time units
+    // Gennemgår tidsenhederne og finder den største passende enhed
     for (const unit of timeUnits) {
       const unitDifference = Math.floor(difference / unit.value);
       if (unitDifference > 0) {
+        // Returnerer formateret streng baseret på den største passende enhed
         return `${unitDifference} ${unit.unit}${
           unitDifference > 1 ? "s" : ""
         } ago`;
       }
     }
 
+    // Returnerer "Lige nu", hvis forskellen er mindre end et sekund
     return "Just now";
   } catch (error) {
+    // Håndtering af fejl, hvis tidsstempelstrengen er ugyldig
     console.error(
       "Invalid timestamp format. Please provide a valid ISO 8601 string."
     );
-    return null; // Or return any appropriate value in case of error
+    return null; // Returnerer null i tilfælde af fejl
   }
 }

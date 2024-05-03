@@ -1,6 +1,6 @@
 .profilePic {
-  border-radius: 50%; /* Make the profile picture round */
-  border: 1px solid white; /* Add border to profile picture */
+  border-radius: 50%; 
+  border: 1px solid white; 
   width: 2.5rem;
   height: 2.5rem;
 }

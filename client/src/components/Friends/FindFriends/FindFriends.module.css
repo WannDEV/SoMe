@@ -16,40 +16,40 @@
 }
 
 .searchbar {
-  position: relative; /* Add relative positioning */
+  position: relative;
 }
 
 .searchbar input[type="text"] {
   padding: 0.5rem;
-  padding-left: 35px; /* Adjust padding to make space for the icon */
+  padding-left: 35px;
   width: 25rem;
   border-radius: 2rem;
-  background-color: var(--background-default); /* Use custom color variable */
+  background-color: var(--background-default);
   border: none;
   outline: none;
 }
 
 @media (max-width: 25rem) {
   .searchbar input[type="text"] {
-    width: 100%; /* Adjust width for smaller screens */
+    width: 100%; 
   }
 }
 
 .searchbar input[type="text"]:hover {
-  background-color: var(--grey-200); /* Change background color on hover */
+  background-color: var(--grey-200); 
 }
 
 .searchbar input[type="text"]:focus {
-  outline: 1px solid var(--grey-300); /* Add focus outline */
+  outline: 1px solid var(--grey-300);
 }
 
 .searchIcon {
   color: var(--text-primary);
   position: absolute;
-  left: 10px; /* Adjust the position as needed */
+  left: 10px;
   top: 50%;
   transform: translateY(-50%);
-  pointer-events: none; /* Ensure the icon doesn't interfere with input events */
+  pointer-events: none;
 }
 
 .infoText {

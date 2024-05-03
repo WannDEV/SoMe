@@ -5,7 +5,7 @@ import * as postInteractionController from "../controllers/postInteraction/postI
 
 const router = express.Router();
 
-// Middleware to validate JWT for protected routes
+// Middleware til at validere JWT-token
 router.use(validateJWT);
 
 // Rute til at like et opslag
@@ -23,7 +23,7 @@ router.delete(
   postInteractionController.deleteComment
 );
 
-// route to share a post
+// Rute til at dele et opslag
 router.post("/:postId/share", postInteractionController.sharePost);
 
 // Rute til at hente kommentarer til et opslag
